@@ -3,4 +3,13 @@
 {% block content %}
   <h2>Homepage</h2>
   <p>Hello {{ user.username }}!</p>
+
+  {% for post in posts %}
+    <div>
+        <p>published: {{ post.pub_date }}</p>
+        <p>by: {{ post.author }}</p>
+        <h1><a href="">{{ post.headline }}</a></h1>
+        <p>{{ post.content|linebreaksbr }}</p>
+    </div>
+{% endfor %}
 {% endblock %}

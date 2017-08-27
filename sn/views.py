@@ -5,14 +5,17 @@ from django.utils import timezone
 
 # Create your views here.
 from .forms import PostForm
+from .models import Post
 
 def index (request):
-    context = {}
-    return render(request, 'sn/index.html', context)
+    return render(request, 'sn/index.html')
 
 @login_required
 def home(request):
-    return render(request, 'sn/home.html')
+    posts = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+    context = {'posts':posts}
+    
+    return render(request, 'sn/home.html', context)
 
 @login_required
 def write(request):

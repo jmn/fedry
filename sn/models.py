@@ -7,8 +7,8 @@ class Muppet(models.Model):
     
 # Create your models here.
 class Post(models.Model):
-    author = models.ForeignKey(Muppet)
-    pub_date = models.DateField()
+    author = models.ForeignKey(User)
+    pub_date = models.DateTimeField()
     headline = models.CharField(max_length=200)
     content = models.TextField()
 
