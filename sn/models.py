@@ -12,3 +12,5 @@ class Post(models.Model):
     headline = models.CharField(max_length=200)
     content = models.TextField()
 
+    def __str__(self):
+        return self.headline

@@ -1,2 +1,9 @@
 <h1>Welcome to smackernews<h1>
-{{ posts }}
+
+{% for post in posts %}
+    <div class="blog-post">
+        <p class="blog-post-meta">published: {{ post.published_date }}</p>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}    
