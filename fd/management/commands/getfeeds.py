@@ -1,16 +1,15 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand #, CommandError
 #from polls.models import Question as Poll
 from fd.models import FeedSource, FeedPost
 from datetime import datetime
-from time import mktime
+#from time import mktime
 import feedparser
 
 def update_feeds(FeedSource, FeedPost):
     for feed in FeedSource.objects.all():
         print(feed.title)
         fis = feedparser.parse(feed.url)
-
-        num_created = 0
+        num_posts_created = 0
         for f in fis.entries:
 
             (fp, created) = FeedPost.objects.get_or_create(
@@ -26,8 +25,8 @@ def update_feeds(FeedSource, FeedPost):
             )
 
             if created:
-                num_created += 1
-        return num_created
+                num_posts_created += 1
+        return num_posts_created
 
 
 
@@ -47,6 +46,6 @@ class Command(BaseCommand):
         #     poll.opened = False
         #     poll.save()
 
-        num_feeds_updated = update_feeds(FeedSource, FeedPost)
+        num_posts_updated = update_feeds(FeedSource, FeedPost)
 #        num_feeds_updated = 3 # FIXME
-        self.stdout.write(self.style.SUCCESS('Successfully updated %s feeds.'  % num_feeds_updated))
+        self.stdout.write(self.style.SUCCESS('Successfully updated %s feeds.'  % num_posts_updated))
