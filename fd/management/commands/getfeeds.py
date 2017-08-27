@@ -9,9 +9,11 @@ def update_feeds(FeedSource, FeedPost):
     for feed in FeedSource.objects.all():
         print(feed.title)
         fis = feedparser.parse(feed.url)
+
+        num_created = 0
         for f in fis.entries:
-#            print(f)
-            fp = FeedPost.objects.get_or_create(
+
+            (fp, created) = FeedPost.objects.get_or_create(
                 feed=feed,
                 url=f.link,
                 defaults={'feed': feed,
@@ -20,9 +22,13 @@ def update_feeds(FeedSource, FeedPost):
                           'author': f.author,
                           'content': f.summary,
                           'date_acquired': datetime.now(),
-                          'date_published': datetime(*f.published_parsed[:6])}
+                          'date_published': datetime(*f.published_parsed[:6])} #FIXME: Need a better time conversion.
             )
-#            print(f.summary)
+
+            if created:
+                num_created += 1
+        return num_created
+
 
 
 class Command(BaseCommand):
@@ -41,6 +47,6 @@ class Command(BaseCommand):
         #     poll.opened = False
         #     poll.save()
 
-        update_feeds(FeedSource, FeedPost)
-        num_feeds_updated = 3 # FIXME
+        num_feeds_updated = update_feeds(FeedSource, FeedPost)
+#        num_feeds_updated = 3 # FIXME
         self.stdout.write(self.style.SUCCESS('Successfully updated %s feeds.'  % num_feeds_updated))
