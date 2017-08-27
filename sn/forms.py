@@ -1,5 +1,8 @@
 from django import forms
+from .models import Post
 
-class PostForm(forms.Form):
-    content = forms.CharField(widget=forms.Textarea)
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('headline', 'content',)
     
