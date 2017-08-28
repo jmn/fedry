@@ -19,6 +19,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^fd/', include('fd.urls')),    
     url(r'^f/', include('feeds.urls')),
     url(r'^s/', include('sn.urls', namespace='sn')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),  

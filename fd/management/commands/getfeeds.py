@@ -1,16 +1,24 @@
 from django.core.management.base import BaseCommand #, CommandError
-#from polls.models import Question as Poll
 from fd.models import FeedSource, FeedPost
 from datetime import datetime
-#from time import mktime
 import feedparser
 
 def update_feeds(FeedSource, FeedPost):
+    num_posts_created = 0
+
     for feed in FeedSource.objects.all():
         print(feed.title)
         fis = feedparser.parse(feed.url)
-        num_posts_created = 0
         for f in fis.entries:
+            if f.has_key('author'):
+                author = f.author
+            else:
+                author = "Unknown"
+
+            if f.has_key('published_parsed'):
+                pub_date = datetime(*f.published_parsed[:6]) #FIXME: Need a better time conversion.
+            else:
+                pub_date = datetime(*f.updated_parsed[:6]) #FIXME: Need a better time conversion.                pub_date = 
 
             (fp, created) = FeedPost.objects.get_or_create(
                 feed=feed,
@@ -18,15 +26,15 @@ def update_feeds(FeedSource, FeedPost):
                 defaults={'feed': feed,
                           'title': f.title,
                           'url': f.link,
-                          'author': f.author,
+                          'author': author,
                           'content': f.summary,
                           'date_acquired': datetime.now(),
-                          'date_published': datetime(*f.published_parsed[:6])} #FIXME: Need a better time conversion.
+                          'date_published': pub_date}
             )
 
             if created:
                 num_posts_created += 1
-        return num_posts_created
+    return num_posts_created
 
 
 
