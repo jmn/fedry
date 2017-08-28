@@ -9,6 +9,7 @@ class FeedSource(models.Model):
     url = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     date_parsed = models.DateTimeField(blank=True, null=True)
+    etag = models.CharField(max_length=200, blank=True, null=True)
     date_added = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
