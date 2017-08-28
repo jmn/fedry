@@ -25,14 +25,17 @@ def update_feeds(FeedSource, FeedPost):
     for feed in FeedSource.objects.all():
         print(feed.title)
 
-        if feed.date_parsed and feed.date_parsed < datetime.now(timezone.utc) - timedelta(minutes=1):
+        if feed.date_parsed and feed.date_parsed > datetime.now(timezone.utc) - timedelta(minutes=1):
             print("Not updating %s because it was updated recently." % feed.title)
             continue
-        
-        fis = feedparser.parse(feed.url, modified=feed.date_parsed, etag=feed.etag)
+        else:
+            feed.date_parsed = datetime.now(timezone.utc)
+            feed.save()
+            
+        fis = feedparser.parse(feed.url, modified=feed.date_modified, etag=feed.etag)
 
         if fis.status == '304': # feed has not changed
-            print("Feed '%s' unchanged, not updating" % feed.title)
+            print("Feed '%s' unchanged according to ETag or date-modified: not updating." % feed.title)
             continue
 
         else:
@@ -42,7 +45,7 @@ def update_feeds(FeedSource, FeedPost):
                 feed.save()
                 mod = True                
             if fis.has_key('updated_parsed'):
-                feed.date_parsed = timetuple_to_datetime(fis.updated_parsed)
+                feed.date_modified = timetuple_to_datetime(fis.updated_parsed)
                 mod = True
             if mod:
                 feed.save()
