@@ -1,12 +1,10 @@
 {% extends "base.html" %}
-{% load bleach_tags %}
 
 {% block content %}
-    <h2>Posts</h2>
+    <h2>Posts: Overview</h2>
     <ul>
         {% for post in object_list %}
         <li><h3>{{ post.title }}</h3>
-          <p>{{ post.content|bleach }}</p>
           
         </li>
         

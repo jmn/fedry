@@ -15,7 +15,11 @@ class FeedSource(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+    @property
+    def posting_avg(self):
+        return 47
+
 class FeedPost(models.Model):
     feed = models.ForeignKey(FeedSource)
     title = models.CharField(max_length=200)
