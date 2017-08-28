@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
-
+from tagulous.models import TagField
 # Create your models here.
 
 class FeedSource(models.Model):
@@ -12,7 +12,7 @@ class FeedSource(models.Model):
     date_parsed = models.DateTimeField(blank=True, null=True)
     date_added = models.DateTimeField(default=datetime.now)
     date_modified = models.DateTimeField(blank=True, null=True)
-
+    tags = TagField()
     def __str__(self):
         return self.title
 
