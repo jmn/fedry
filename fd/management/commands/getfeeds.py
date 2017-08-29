@@ -4,6 +4,9 @@ from datetime import datetime, timedelta, timezone
 import feedparser
 import functools
 import time
+from urllib.parse import urljoin, urlparse
+
+from bs4 import BeautifulSoup
 
 def timeit(func):
     @functools.wraps(func)
@@ -55,6 +58,23 @@ def update_feeds(FeedSource, FeedPost):
 
     return num_posts_created
 
+# Preprocessing. Convert relative URLs to absolute.
+def convert_absolute_urls(content, base_url='http://example.com'):
+    soup = BeautifulSoup(content, 'html.parser')
+    for link in soup.find_all("a", href=True):
+        absolute_url = urljoin(base_url, link["href"])
+        link["href"] = absolute_url
+
+    return soup.prettify()
+
+def convert_absolute_img_urls(content, base_url='http://example.com'):
+    soup = BeautifulSoup(content, 'html.parser')
+    for link in soup.find_all("img", src=True):
+        absolute_url = urljoin(base_url, link["src"])
+        link["src"] = absolute_url
+
+    return soup.prettify()
+
 def insert_posts(feed, entries):
     num_created = 0
     for f in entries:
@@ -68,6 +88,10 @@ def insert_posts(feed, entries):
         else:
             pub_date = timetuple_to_datetime(f.updated_parsed) #FIXME: Need a better time conversion.                pub_date = 
 
+        # clean up content
+        base_url = '{uri.scheme}://{uri.netloc}/'.format(uri=urlparse(f.link))
+        content = convert_absolute_img_urls(f.summary, base_url)
+
         (fp, created) = FeedPost.objects.get_or_create(
             feed=feed,
             url=f.link,
@@ -75,7 +99,7 @@ def insert_posts(feed, entries):
                       'title': f.title,
                       'url': f.link,
                       'author': author,
-                      'content': f.summary,
+                      'content': content,
                       'date_acquired': datetime.now(),
                       'date_published': pub_date}
         )

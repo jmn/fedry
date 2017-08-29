@@ -13,6 +13,10 @@ class PostIndexView(ListView):
     model = FeedPost
     paginate_by = 10
 
+def post_detail(request, post_id):
+    post = get_object_or_404(FeedPost, pk=post_id)
+    return render(request, 'fd/post_detail.html', {'post': post})
+
 def posts_by_tags(request, tag): # FIXME: Convert to taglist
     fs = FeedSource.objects.filter(tags=tag)
 

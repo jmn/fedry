@@ -24,7 +24,7 @@ class FeedSource(models.Model):
 class FeedPost(models.Model):
     feed = models.ForeignKey(FeedSource)
     title = models.CharField(max_length=200)
-    url = models.CharField(max_length=200, primary_key=True)
+    url = models.CharField(max_length=200, unique=True)
     author = models.CharField(max_length=200)
     content = models.TextField()
     date_acquired = models.DateTimeField()
