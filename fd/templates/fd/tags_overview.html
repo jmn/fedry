@@ -5,15 +5,12 @@
   <div class="row">
     <h2>Posts: Overview</h2>
     <ul>
-        {% for key, post_list in users_tags.items %}
-        <li><h2>{{ key.name }}</h2>
+        {% for tag_key, post_list in users_tags.items %}
+        <li><h2>{{ tag_key.name }}</h2>
           {% for post in post_list %}
-        <li>{{ post.title }}
+            <li>{{ post.title }}</li>
+          {% endfor %}
         </li>
-        {% endfor %}
-
-        </li>
-        
         {% endfor %}
     </ul>
 {% endblock %}

@@ -59,19 +59,16 @@ def update_feeds(FeedSource, FeedPost):
     return num_posts_created
 
 # Preprocessing. Convert relative URLs to absolute.
-def convert_absolute_urls(content, base_url='http://example.com'):
-    soup = BeautifulSoup(content, 'html.parser')
-    for link in soup.find_all("a", href=True):
-        absolute_url = urljoin(base_url, link["href"])
-        link["href"] = absolute_url
-
-    return soup.prettify()
-
 def convert_absolute_img_urls(content, base_url='http://example.com'):
     soup = BeautifulSoup(content, 'html.parser')
+
     for link in soup.find_all("img", src=True):
-        absolute_url = urljoin(base_url, link["src"])
+        absolute_url = urljoin(base_url, link["src"]) 
         link["src"] = absolute_url
+
+    for link in soup.find_all("a", href=True):
+        absolute_url = urljoin(base_url, link["href"]) # TODO: Don't touch links starting with "#" (internal links.)
+        link["href"] = absolute_url
 
     return soup.prettify()
 
@@ -90,7 +87,7 @@ def insert_posts(feed, entries):
 
         # clean up content
         base_url = '{uri.scheme}://{uri.netloc}/'.format(uri=urlparse(f.link))
-        content = convert_absolute_img_urls(f.summary, base_url)
+        content = convert_absolute_img_urls(f.content[0].value, base_url)
 
         (fp, created) = FeedPost.objects.get_or_create(
             feed=feed,

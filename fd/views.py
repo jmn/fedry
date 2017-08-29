@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from fd.models import FeedPost, FeedSource
 from itertools import chain
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 class PostList(ListView):
     model = FeedPost
@@ -12,6 +13,13 @@ class PostIndexView(ListView):
     template_name = 'fd/topics.html'
     model = FeedPost
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ListView, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the tags
+        context['tag_list'] = FeedSource.tags.tag_model.objects.all()
+        return context
 
 def post_detail(request, post_id):
     post = get_object_or_404(FeedPost, pk=post_id)

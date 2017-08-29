@@ -8,6 +8,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.PostIndexView.as_view()),
+#    url(r'^$', views.index),    
     url(r'^(?P<tag>[\w-]+)$', views.posts_by_tags, name='tags'),
     url(r'^view/(?P<post_id>[\w-]+)$', views.post_detail, name='post_detail'),
     url(r'^t/(?P<username>[\w-]+)$', views.tags_overview, name='tags_overview'),

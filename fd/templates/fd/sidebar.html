@@ -1,0 +1,17 @@
+    <div class="col-sm-3 offset-sm-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        Hello ~foo~
+      </div>
+      <ul class="list-unstyled">
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+        {% if tag_list %}
+      <div class="list-group">
+        {% for tag in tag_list %}
+        <a href="{% url 'tags' tag %}" class="list-group-item">{{tag}}</a>
+        {% endfor %}
+      </div>
+   {% endif %}
+
+    </div>
+

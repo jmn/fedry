@@ -1,25 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row row-offcanvas row-offcanvas-right">
   <div class="row">
-    <h2>Posts: Topics</h2>
-    <ul>
+
+    <div class="col-sm-8 blog-main">
+      <h2>Posts: Topics</h2>
+      <ul>
         {% for post in object_list %}
         <li><h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
         </li>
         
         {% endfor %}
-    </ul>
-</div>
-    {% if tag_list %}
-    <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
-      <div class="list-group">
-        {% for tag in tag_list %}
-        <a href="{% url 'tags' tag %}" class="list-group-item">{{tag}}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
+      </ul>
     </div>
-    
+
+{% include 'fd/sidebar.html' %}
+  
 {% endblock %}
