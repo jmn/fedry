@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row row-offcanvas row-offcanvas-right">
+  <div class="row">
+    <h2>Posts: Overview</h2>
+    <ul>
+        {% for key, post_list in users_tags.items %}
+        <li><h2>{{ key.name }}</h2>
+          {% for post in post_list %}
+        <li>{{ post.title }}
+        </li>
+        {% endfor %}
+
+        </li>
+        
+        {% endfor %}
+    </ul>
+{% endblock %}

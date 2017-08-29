@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="row row-offcanvas row-offcanvas-right">
+  <div class="row">
     <h2>Posts: Overview</h2>
     <ul>
         {% for post in object_list %}
@@ -9,13 +11,15 @@
         
         {% endfor %}
     </ul>
-
+</div>
     {% if tag_list %}
     <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
       <div class="list-group">
         {% for tag in tag_list %}
-        <a href="/fd/{{tag}}" class="list-group-item">{{tag}}</a>
+        <a href="{% url 'tags' tag %}" class="list-group-item">{{tag}}</a>
         {% endfor %}
       </div>
-    {% endif %}
+      {% endif %}
+    </div>
+    
 {% endblock %}
