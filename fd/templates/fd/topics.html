@@ -9,4 +9,13 @@
         
         {% endfor %}
     </ul>
+
+    {% if tag_list %}
+    <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+      <div class="list-group">
+        {% for tag in tag_list %}
+        <a href="#" class="list-group-item">{{tag}}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
 {% endblock %}

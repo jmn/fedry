@@ -20,5 +20,6 @@ def posts_by_tags(request, tag): # FIXME: Convert to taglist
     for f in fs:                                        # for each f in fs, get all objects which has post.feed = f
         posts.append(FeedPost.objects.filter(feed=f))
 
-    result = list(chain(*posts)) # extract the querysets into a list
-    return render(request, 'fd/topics.html', {'object_list': result})
+    result = list(chain(*posts)) # extract the querysets into a list using itertools.chain 
+    tag_list = FeedSource.tags.tag_model.objects.all()     # all tags
+    return render(request, 'fd/topics.html', {'object_list': result, 'tag_list': tag_list})
