@@ -87,7 +87,11 @@ def insert_posts(feed, entries):
 
         # clean up content
         base_url = '{uri.scheme}://{uri.netloc}/'.format(uri=urlparse(f.link))
-        content = convert_absolute_img_urls(f.content[0].value, base_url)
+        if f.has_key('content'):
+            content = f.content[0].value
+        else:
+            content = f.summary
+        content = convert_absolute_img_urls(content, base_url)
 
         (fp, created) = FeedPost.objects.get_or_create(
             feed=feed,

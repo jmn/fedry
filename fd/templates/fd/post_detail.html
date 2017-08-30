@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load bleach_tags %}
+{% load fontawesome %}
 
 {% block content %}
     <h2>{{ post.title }}</h2>
     <p>{{ post.content|bleach }}</p>    
-
+<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span>{% fontawesome_icon 'chevron-up' large=True %}</span></a>
 {% endblock %}

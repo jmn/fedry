@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'fontawesome',
     'tagulous',
     'fd',
     'sn',
