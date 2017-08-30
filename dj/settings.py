@@ -154,5 +154,6 @@ SERIALIZATION_MODULES = {
 }
 
 BOOTSTRAP4 = {
-    'css_url': 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css'
+    'css_url': 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css',
+    'include_jquery' : True,
 }

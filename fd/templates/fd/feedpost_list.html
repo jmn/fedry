@@ -2,15 +2,18 @@
 {% load bleach_tags %}
 
 {% block content %}
-    <h2>Posts</h2>
-    <ul>
-        {% for post in object_list %}
-        <li><h3>{{ post.title }}</h3>
+<h2>Posts</h2>
+<div class="row">
+  <div class="col-sm-8 blog-main">
+    {% for post in object_list %}
+    <div>
+        <h2>{{ post.title }}</h2>
           <p>{{ post.content|bleach }}</p>
-          
-        </li>
-        
+          <hr>
+    </div>        
         {% endfor %}
     </ul>
-    
+    </div>
+    {% include 'fd/sidebar.html' %}
+</div>
 {% endblock %}

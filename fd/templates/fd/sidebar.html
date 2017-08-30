@@ -3,6 +3,9 @@
         Hello ~foo~
       </div>
       <ul class="list-unstyled">
+        <li><a href="{% url 'topics_view' %}">Overview (Topics)</a></li>
+        <li><a href="{% url 'detailed_list' %}">Detailed view</a></li>
+        <li><br></li>
         <li><a href="{% url 'logout' %}">Logout</a></li>
       </ul>
         {% if tag_list %}
