@@ -4,6 +4,8 @@ from fd.models import FeedPost, FeedSource
 from itertools import chain
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
 
 class PostList(ListView):
     model = FeedPost
@@ -14,11 +16,19 @@ class PostIndexView(ListView):
     model = FeedPost
     paginate_by = 10
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PostIndexView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return FeedPost.objects.filter(feed__user=self.request.user)
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ListView, self).get_context_data(**kwargs)
         # Add in a QuerySet of all the tags
         context['tag_list'] = FeedSource.tags.tag_model.objects.all()
+        context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
         return context
 
 def post_detail(request, post_id):

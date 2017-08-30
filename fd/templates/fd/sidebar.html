@@ -1,20 +1,39 @@
-    <div class="col-sm-3 offset-sm-1 blog-sidebar">
-      <div class="sidebar-module sidebar-module-inset">
-        Hello ~foo~
-      </div>
-      <ul class="list-unstyled">
-        <li><a href="{% url 'topics_view' %}">Overview (Topics)</a></li>
-        <li><a href="{% url 'detailed_list' %}">Detailed view</a></li>
-        <li><br></li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-      </ul>
-        {% if tag_list %}
-      <div class="list-group">
-        {% for tag in tag_list %}
-        <a href="{% url 'tags' tag %}" class="list-group-item">{{tag}}</a>
-        {% endfor %}
-      </div>
-   {% endif %}
+{% load fontawesome %}
+<div class="col-sm-3 offset-sm-1 blog-sidebar">
+  <div class="sidebar-module sidebar-module-inset">
+    <br>
+  </div>
+  <ul class="list-unstyled">
+    <li><a href="{% url 'topics_view' %}">Overview (Topics)</a></li>
+    <li><a href="{% url 'detailed_list' %}">Detailed view</a></li>
+    <li><br></li>
 
-    </div>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+    {% else %}
+    <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+    {% endif %}
+  </ul>
+  {% if tag_list %}
+  <div class="list-group" id="tag-list">
+    <h4>Tags</h4>
+    {% for tag in tag_list %}
+    <a href="{% url 'tags' tag %}" class="list-group-item">{{tag}}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if sources_list %}
+  <ul class="list-unstyled">
+    <h4>Sources</h4>
+    {% for source in sources_list %}
+    <li>{{ source }} <a href="{{ source.url }}">{% fontawesome_icon 'rss-square' %}</a></li>
+    {% endfor %}
+
+
+  </ul>
+  {% endif %}
+
+
+</div>
 
