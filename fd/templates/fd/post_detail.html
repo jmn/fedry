@@ -8,6 +8,8 @@
 
     {% if next_post %}
     <a class="btn btn-primary" href="{% url 'post_detail' next_post.pk %}">Newer</a>
+    {% else %}
+    <a class="btn btn-primary disabled" href="#">Newer</a>
     {% endif %}
 
 
@@ -15,6 +17,8 @@
 
     {% if prev_post %}
     <a class="btn btn-primary" href="{% url 'post_detail' prev_post.pk %}">Older</a>
+    {% else %}
+    <a class="btn btn-primary disabled" href="#">Older</a>
     {% endif %}
 
    

@@ -60,9 +60,16 @@ def post_detail(request, post_id):
     # prev_id, next_id as GET Params
     
     post = get_object_or_404(FeedPost, pk=post_id)
-    next_post = FeedPost.get_next_by_date_published(post) # FIXME: This is sketchy because of it's not context-aware.
-    prev_post = FeedPost.get_previous_by_date_published(post)
-
+    try:
+        next_post = FeedPost.get_next_by_date_published(post) # FIXME: This is sketchy because of it's not context-aware.
+    except FeedPost.DoesNotExist:
+        next_post = ''
+        
+    try:
+        prev_post = FeedPost.get_previous_by_date_published(post)
+    except FeedPost.DoesNotExist:
+        prev_post = ''
+        
     return render(request, 'fd/post_detail.html', {'post': post, 'next_post': next_post,'prev_post': prev_post})
 
 def posts_by_tags(request, tag): # FIXME: Convert to taglist
