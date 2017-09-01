@@ -8,7 +8,7 @@
       <h2>Posts: Topics</h2>
       <ul>
         {% for post in object_list %}
-        <li><h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+        <li><h5><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a><br> <small>{{ post.feed.title }}, <em>{{ post.date_published }}</em></small></h5>
         </li>
         
         {% endfor %}

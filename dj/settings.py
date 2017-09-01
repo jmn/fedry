@@ -145,7 +145,7 @@ LOGIN_REDIRECT_URL = 'sn:home'
 SOCIAL_AUTH_GITHUB_KEY = '38f135c8216782fed0b3'
 SOCIAL_AUTH_GITHUB_SECRET = 'f086fc11dee76ff7931ec72087b8d24ea3408ac3'
 
-BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a','pre','code','ul','li','h1','h2','h3','h4','h5','blockquote','span','div','table','th','tr','td','thead','tbody','img','aside','ol','dl','dt','dd','sup','br']
+BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a','pre','code','ul','li','h1','h2','h3','h4','h5','blockquote','span','div','table','th','tr','td','thead','tbody','img','aside','ol','dl','dt','dd','sup','br','kbd']
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'style','src','width','height']
 SERIALIZATION_MODULES = {
     'xml':    'tagulous.serializers.xml_serializer',

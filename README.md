@@ -2,3 +2,7 @@
 TODO:
         Use pip-tools to configure dependencies:
         https://stackoverflow.com/a/35411399/41829
+
+
+        Pagination: Use digg style/google style (endless) pagination
+        http://django-el-pagination.readthedocs.io/en/latest/index.html

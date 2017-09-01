@@ -6,14 +6,18 @@
   <ul class="list-unstyled">
     <li><a href="{% url 'topics_view' %}">Overview (Topics)</a></li>
     <li><a href="{% url 'detailed_list' %}">Detailed view</a></li>
+    {% if user.is_authenticated %} <!-- and is page owner -->
     <li><br></li>
+    <li><a href="{% url 'source_list' %}">Edit feeds</a></li>
+    
 
-    {% if user.is_authenticated %}
     <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
     {% else %}
     <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
     {% endif %}
+
   </ul>
+
   {% if tag_list %}
   <div class="list-group" id="tag-list">
     <h4>Tags</h4>
@@ -29,8 +33,6 @@
     {% for source in sources_list %}
     <li>{{ source }} <a href="{{ source.url }}">{% fontawesome_icon 'rss-square' %}</a></li>
     {% endfor %}
-
-
   </ul>
   {% endif %}
 

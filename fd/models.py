@@ -6,7 +6,7 @@ from tagulous.models import TagField
 
 class FeedSource(models.Model):
     user = models.ForeignKey(User)
-    url = models.CharField(max_length=200)
+    url = models.URLField(max_length=200)
     title = models.CharField(max_length=200)
     etag = models.CharField(max_length=200, blank=True, null=True)
     date_parsed = models.DateTimeField(blank=True, null=True)
@@ -24,7 +24,7 @@ class FeedSource(models.Model):
 class FeedPost(models.Model):
     feed = models.ForeignKey(FeedSource)
     title = models.CharField(max_length=200)
-    url = models.CharField(max_length=200, unique=True)
+    url = models.URLField(max_length=200, unique=True)
     author = models.CharField(max_length=200)
     content = models.TextField()
     date_acquired = models.DateTimeField()
