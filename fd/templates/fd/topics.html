@@ -6,12 +6,15 @@
 
     <div class="col-sm-8 blog-main">
       <h2>Posts: Topics</h2>
-      <ul>
+      <ul class="list-unstyled">
+        {% if object_list %}
         {% for post in object_list %}
-        <li><h5><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a><br> <small>{{ post.feed.title }}, <em>{{ post.date_published }}</em></small></h5>
+        <li><h5><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> <small>{{ post.feed.title }}, <em>{{ post.date_published }}</em></small></h5>
         </li>
-        
         {% endfor %}
+        {% else %}
+        No posts. <a href="{% url 'source_create' %}">Add some feeds</a> to get content here.
+        {% endif %}
       </ul>
     </div>
 

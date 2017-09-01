@@ -70,7 +70,7 @@ def posts_by_tags(request, tag): # FIXME: Convert to taglist
 
     posts = []
     for f in fs:                                        # for each f in fs, get all objects which has post.feed = f
-        posts.append(FeedPost.objects.order_by('date_published').filter(feed=f))
+        posts.append(FeedPost.objects.order_by('-date_published').filter(feed=f))
 
     result = list(chain(*posts)) # extract the querysets into a list using itertools.chain 
     tag_list = FeedSource.tags.tag_model.objects.all()     # all tags
@@ -85,7 +85,7 @@ def tags_overview(request, username):
         sources = FeedSource.objects.filter(tags=t)
         posts = []
         for f in sources:                                        # for each f in fs, get all objects which has post.feed = f
-            posts.append(FeedPost.objects.filter(feed=f))
+            posts.append(FeedPost.objects.order_by('-date_published').filter(feed=f))
         result = list(chain(*posts)) # extract the querysets into a list using itertools.chain 
         users_tags[t] = result
 
