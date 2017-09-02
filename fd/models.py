@@ -23,7 +23,8 @@ class FeedSource(models.Model):
 
     class Meta:
         ordering = ["title"]
-
+        unique_together = (("user", "url"))
+        
 class FeedPost(models.Model):
     feed = models.ForeignKey(FeedSource)
     title = models.CharField(max_length=200)

@@ -5,7 +5,6 @@ import feedparser
 import functools
 import time
 from urllib.parse import urljoin, urlparse
-
 from bs4 import BeautifulSoup
 
 def timeit(func):
