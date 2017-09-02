@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
+from django.utils import timezone
 from tagulous.models import TagField
 # Create your models here.
 
@@ -10,7 +10,7 @@ class FeedSource(models.Model):
     title = models.CharField(max_length=200)
     etag = models.CharField(max_length=200, blank=True, null=True)
     date_parsed = models.DateTimeField(blank=True, null=True)
-    date_added = models.DateTimeField(default=datetime.now)
+    date_added = models.DateTimeField(default=timezone.now)
     date_modified = models.DateTimeField(blank=True, null=True)
     tags = TagField()
     
@@ -20,6 +20,9 @@ class FeedSource(models.Model):
     @property
     def posting_avg(self):
         return 47
+
+    class Meta:
+        ordering = ["title"]
 
 class FeedPost(models.Model):
     feed = models.ForeignKey(FeedSource)

@@ -46,7 +46,7 @@ class SourceEdit(UpdateView):
     fields = ['title', 'url', 'tags']
     success_url = reverse_lazy('source_list')
 
-class SourceList(ListView):
+class SourceList(PaginatedListView):
     model = FeedSource
     paginate_by = 10
     
