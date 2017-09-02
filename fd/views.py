@@ -113,8 +113,8 @@ def tags_overview(request, username):
         sources = FeedSource.objects.filter(tags=t)
         posts = []
         for f in sources:                                        # for each f in fs, get all objects which has post.feed = f
-            posts.append(FeedPost.objects.order_by('-date_published').filter(feed=f))
-        result = list(chain(*posts)) # extract the querysets into a list using itertools.chain 
+            posts.append(FeedPost.objects.order_by('-date_published').filter(feed=f)) 
+        result = list(chain(*posts)) # extract the querysets into a list using itertools.chain  #FIXME: Order ALL
         users_tags[t] = result
 
     context = {'users_tags': users_tags}

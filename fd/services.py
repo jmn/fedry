@@ -9,6 +9,41 @@ from bs4 import BeautifulSoup
 
 # defines functions shared by signals and commands
 # among other things.
+def update_from_all_feeds():
+    num_posts_created = 0
+
+    for feed in FeedSource.objects.all():
+        print(feed.title)
+
+        if feed.date_parsed and feed.date_parsed > datetime.now(timezone.utc) - timedelta(minutes=1):
+            print("Not updating %s because it was updated recently." % feed.title)
+            continue
+        else:
+            feed.date_parsed = datetime.now(timezone.utc)
+            feed.save()
+            
+        fis = feedparser.parse(feed.url, modified=feed.date_modified, etag=feed.etag)
+
+        if fis.status == '304': # feed has not changed
+            print("Feed '%s' unchanged according to ETag or date-modified: not updating." % feed.title)
+            continue
+
+        else:
+            mod = False
+            if fis.has_key('etag'):
+                feed.etag = fis.etag
+                feed.save()
+                mod = True                
+            if fis.has_key('updated_parsed'):
+                feed.date_modified = timetuple_to_datetime(fis.updated_parsed)
+                mod = True
+            if mod:
+                feed.save()
+
+        insert_posts(feed, fis.entries)
+        print("inserting posts")
+
+    return num_posts_created
 
 def get_initial_posts(feedsource_pk):
     f = FeedSource.objects.get(pk=feedsource_pk)
