@@ -22,7 +22,7 @@
   <div class="list-group" id="tag-list">
     <h4>Tags</h4>
     {% for tag in tag_list %}
-    <a href="{% url 'tags' tag %}" class="list-group-item">{{tag}}</a>
+    <a href="{% url 'tags' request.user.username tag %}" class="list-group-item">{{tag}}</a>
     {% endfor %}
   </div>
   {% endif %}

@@ -67,6 +67,13 @@ class PostIndexView(PaginatedListView):
         return super(PostIndexView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
+        if 'tags' in self.kwargs:
+            tags = self.kwargs['tags']
+            print(tags)
+#            FeedSource.objects.filter(tags=tags)
+            tag_id = FeedSource.tags.tag_model.objects.filter(slug=tags)[0]
+            # return FeedPost.objects.filter(feed__user=self.request.user, feed__tags='haskell')
+            return FeedPost.objects.filter(feed__user=self.request.user, feed__tags=tag_id)
         return FeedPost.objects.filter(feed__user=self.request.user)
 
     def get_context_data(self, **kwargs):
