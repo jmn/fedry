@@ -69,19 +69,21 @@ class PostIndexView(PaginatedListView):
     def get_queryset(self):
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
-            print(tags)
-#            FeedSource.objects.filter(tags=tags)
             tag_id = FeedSource.tags.tag_model.objects.filter(slug=tags)[0]
-            # return FeedPost.objects.filter(feed__user=self.request.user, feed__tags='haskell')
             return FeedPost.objects.filter(feed__user=self.request.user, feed__tags=tag_id)
         return FeedPost.objects.filter(feed__user=self.request.user)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(PostIndexView, self).get_context_data(**kwargs)
+
         # Add in a QuerySet of all the tags
         context['tag_list'] = FeedSource.tags.tag_model.objects.filter_or_initial(feedsource__user=self.request.user).distinct()
-        context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
+        if 'tags' in self.kwargs:
+            context['sources_list'] = FeedSource.objects.filter(user=self.request.user, tags=self.kwargs['tags'])
+        else:
+            context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
+            
         return context
 
 def post_detail(request, post_id):
@@ -139,7 +141,7 @@ def user_tags_overview(request, username="", tags=""):
         for f in sources:                                        # for each f in fs, get all objects which has post.feed = f
             posts.append(FeedPost.objects.filter(feed=f))
         result = list(chain(*posts)) # extract the querysets into a list using itertools.chain 
-        print(t)
+
         users_tags[t] = result
 
     context = {'users_tags': users_tags}
