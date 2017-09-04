@@ -4,14 +4,16 @@ from django.utils import timezone
 from tagulous.models import TagField
 # Create your models here.
 
-class FeedSource(models.Model):
-    user = models.ForeignKey(User)
+class Feed(models.Model):
     url = models.URLField(max_length=200)
-    title = models.CharField(max_length=200)
     etag = models.CharField(max_length=200, blank=True, null=True)
     date_parsed = models.DateTimeField(blank=True, null=True)
-    date_added = models.DateTimeField(default=timezone.now)
     date_modified = models.DateTimeField(blank=True, null=True)
+    
+class FeedSource(models.Model):
+    user = models.ForeignKey(User)
+    feed = models.ForeignKey(Feed)
+    title = models.CharField(max_length=200)
     tags = TagField()
     
     def __str__(self):
@@ -23,10 +25,9 @@ class FeedSource(models.Model):
 
     class Meta:
         ordering = ["title"]
-        unique_together = (("user", "url"))
+        unique_together = (("user", "feed"))
         
 class FeedPost(models.Model):
-    id = models.BigIntegerField(primary_key = True)
     feed = models.ForeignKey(FeedSource)
     title = models.CharField(max_length=200)
     url = models.URLField(max_length=200)

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic import ListView
 from fd.models import FeedPost, FeedSource
+from fd.forms import *
 from itertools import chain
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -33,12 +34,16 @@ class PaginatedListView(ListView):
     
 class SourceCreate(LoginRequiredMixin, CreateView):
     model = FeedSource
-    fields = ['title', 'url', 'tags']
     success_url = reverse_lazy('source_list')
+    form_class = SourceCreateForm
     
     def form_valid(self, form):
+        url = form.cleaned_data['url']
+        # see if this url already exists in Feeds, if not create it
         form.instance.user = self.request.user
-        return super(SourceCreate, self).form_valid(form)
+        form.instance.feed = Feed.objects.get_or_create(url=url)[0]
+        response = super(SourceCreate, self).form_valid(form)
+        return response
 
 class SourceEdit(UpdateView):
     template_name = 'fd/edit_sources.html'
