@@ -4,4 +4,4 @@ install:
 	done < requirements.pip
 
 windows-rqworker:
-	python manage.py rqworker --worker-class simpleworker.SimpleWorker default
+	python manage.py rqworker --worker-class simpleworker.SimpleWorker high default

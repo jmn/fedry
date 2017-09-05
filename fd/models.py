@@ -9,7 +9,10 @@ class Feed(models.Model):
     etag = models.CharField(max_length=200, blank=True, null=True)
     date_parsed = models.DateTimeField(blank=True, null=True)
     date_modified = models.DateTimeField(blank=True, null=True)
-    
+
+    def __str__(self):
+        return self.url
+
 class FeedSource(models.Model):
     user = models.ForeignKey(User)
     feed = models.ForeignKey(Feed)
@@ -28,7 +31,8 @@ class FeedSource(models.Model):
         unique_together = (("user", "feed"))
         
 class FeedPost(models.Model):
-    feed = models.ForeignKey(FeedSource)
+    feed = models.ForeignKey(Feed)
+    feed_sources = models.ManyToManyField(FeedSource)
     title = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
     author = models.CharField(max_length=200)

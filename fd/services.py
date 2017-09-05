@@ -10,45 +10,40 @@ from bs4 import BeautifulSoup
 # defines functions shared by signals and commands
 # among other things.
 def update_from_all_feeds():
-    num_posts_created = 0
 
-    for feed in FeedSource.objects.all():
-        print(feed.title)
+    for feedsource in FeedSource.objects.all():
+        feed = feedsource.feed
 
-        if feed.date_parsed and feed.date_parsed > datetime.now(timezone.utc) - timedelta(minutes=1):
-            print("Not updating %s because it was updated recently." % feed.title)
+        if feed.date_parsed and feed.date_parsed == datetime.now(timezone.utc) - timedelta(minutes=1): #FIXME: Flip < to >
+#            print("Not updating %s because it was updated recently." % feed.title)
             continue
         else:
             feed.date_parsed = datetime.now(timezone.utc)
             feed.save()
             
-        fis = feedparser.parse(feed.url, modified=feed.date_modified, etag=feed.etag)
+        parsed = feedparser.parse(feed.url) #, modified=feed.date_modified, etag=feed.etag) # FIXME Re-enable this DEBUG
 
-        if fis.status == '304': # feed has not changed
+        if parsed.status == '304': # feed has not changed
             print("Feed '%s' unchanged according to ETag or date-modified: not updating." % feed.title)
             continue
 
         else:
             mod = False
-            if fis.has_key('etag'):
-                feed.etag = fis.etag
+            if parsed.has_key('etag'):
+                feed.etag = parsed.etag
                 feed.save()
                 mod = True                
-            if fis.has_key('updated_parsed'):
-                feed.date_modified = timetuple_to_datetime(fis.updated_parsed)
+            if parsed.has_key('updated_parsed'):
+                feed.date_modified = timetuple_to_datetime(parsed.updated_parsed)
                 mod = True
             if mod:
                 feed.save()
 
-        insert_posts(feed, fis.entries)
-        print("inserting posts")
-
-    return num_posts_created
+        insert_posts(feedsource, parsed.entries)
 
 def get_initial_posts(feedsource_pk):
     f = FeedSource.objects.get(pk=feedsource_pk)
-    parsed = feedparser.parse(f.url)
-    print( "woohoo")
+    parsed = feedparser.parse(f.feed.url)
     insert_posts(f, parsed.entries)
 
 def timeit(func):
@@ -80,7 +75,8 @@ def convert_absolute_img_urls(content, base_url='http://example.com'):
     return soup.prettify()
 
 
-def insert_posts(feed, entries):
+def insert_posts(feedsource, entries):
+    print( "inserting")
     num_created = 0
     for f in entries:
         if f.has_key('author'):
@@ -102,16 +98,18 @@ def insert_posts(feed, entries):
         content = convert_absolute_img_urls(content, base_url)
 
         (fp, created) = FeedPost.objects.get_or_create(
-            feed=feed,
-            url=f.link,
-            defaults={'feed': feed,
-                      'title': f.title,
-                      'url': f.link,
-                      'author': author,
+            feed=feedsource.feed,
+            url=f.link[:180],
+            defaults={'feed': feedsource.feed,
+                      'title': f.title[:180],
+                      'url': f.link[:180],
+                      'author': author[:180],
                       'content': content,
                       'date_acquired': datetime.now(),
                       'date_published': pub_date}
         )
+        fp.feed_sources.add(feedsource)
+        fp.save()
 
         if created:
             num_created += 1    
