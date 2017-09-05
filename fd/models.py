@@ -26,7 +26,6 @@ class FeedSource(models.Model):
         unique_together = (("user", "url"))
         
 class FeedPost(models.Model):
-    id = models.BigIntegerField(primary_key = True)
     feed = models.ForeignKey(FeedSource)
     title = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
