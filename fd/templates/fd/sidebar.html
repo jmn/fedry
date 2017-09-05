@@ -4,8 +4,14 @@
     <br>
   </div>
   <ul class="list-unstyled">
+    {% if tag_view %}
+    <li><a href="{% url 'tags' request.user.username tag_view %}">Overview (Topics)</a></li>
+    <li><a href="{% url 'tags_detailed' request.user.username tag_view %}">Detailed view</a></li>
+    {% else %}
     <li><a href="{% url 'topics_view' %}">Overview (Topics)</a></li>
     <li><a href="{% url 'detailed_list' %}">Detailed view</a></li>
+    {% endif %}
+    
     {% if user.is_authenticated %} <!-- and is page owner -->
     <li><br></li>
     <li><a href="{% url 'source_list' %}">Edit feeds</a></li>
@@ -22,7 +28,7 @@
   <div class="list-group" id="tag-list">
     <h4>Tags</h4>
     {% for tag in tag_list %}
-    <a href="{% url 'tags' request.user.username tag %}" class="list-group-item">{{tag}}</a>
+    <a href="{% url 'tags' request.user.username tag %}" class="list-group-item {% if tag_view == tag %} active {% endif %}">{{tag}}</a>
     {% endfor %}
   </div>
   {% endif %}
