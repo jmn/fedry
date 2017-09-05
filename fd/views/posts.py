@@ -35,6 +35,37 @@ class PostList(PaginatedListView):
     model = FeedPost
     paginate_by = 3
 
+    def get_queryset(self):
+
+        if 'tags' in self.kwargs:
+            tags = self.kwargs['tags']
+            users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
+            user_source_pks = users_sources.values_list('id', flat=True)
+            posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
+
+        else:
+            users_sources = FeedSource.objects.filter(user=self.request.user)
+            user_source_pks = users_sources.values_list('id', flat=True)
+            posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
+
+        for fs in users_sources: # FIXME: This must be very slow
+            for p in posts:
+                if p.feed == fs.feed:
+                    p.source_title = fs.title
+        return posts
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PostList, self).get_context_data(**kwargs)
+        context['tag_list'] = FeedSource.tags.tag_model.objects.filter_or_initial(feedsource__user=self.request.user).distinct()
+        if 'tags' in self.kwargs:
+            context['tag_view'] = self.kwargs['tags']
+            context['sources_list'] = FeedSource.objects.filter(user=self.request.user, tags=self.kwargs['tags'])
+        else:
+            context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
+            
+        return context
+    
 class PostIndexView(PaginatedListView):
     template_name = 'fd/topics.html'
     model = FeedPost
@@ -45,16 +76,18 @@ class PostIndexView(PaginatedListView):
         return super(PostIndexView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        users_sources = FeedSource.objects.filter(user=self.request.user)
-        user_source_pks = users_sources.values_list('id', flat=True)
 
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
-        
-            tag_id = FeedSource.tags.tag_model.objects.filter(slug=tags)[0]
-            return FeedPost.objects.filter(feed__in=user_source_pks, feed__tags=tag_id)
+            users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
+            user_source_pks = users_sources.values_list('id', flat=True)
+            posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
 
-        posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
+        else:
+            users_sources = FeedSource.objects.filter(user=self.request.user)
+            user_source_pks = users_sources.values_list('id', flat=True)
+            posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
+
         for fs in users_sources: # FIXME: This must be very slow
             for p in posts:
                 if p.feed == fs.feed:
@@ -67,6 +100,7 @@ class PostIndexView(PaginatedListView):
 
         context['tag_list'] = FeedSource.tags.tag_model.objects.filter_or_initial(feedsource__user=self.request.user).distinct()
         if 'tags' in self.kwargs:
+            context['tag_view'] = self.kwargs['tags']
             context['sources_list'] = FeedSource.objects.filter(user=self.request.user, tags=self.kwargs['tags'])
         else:
             context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
