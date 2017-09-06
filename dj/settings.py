@@ -166,6 +166,7 @@ SOCIAL_AUTH_SANITIZE_REDIRECTS = True
 BLEACH_STRIP_TAGS = True
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a','pre','code','ul','li','h1','h2','h3','h4','h5','blockquote','span','div','table','th','tr','td','thead','tbody','img','aside','ol','dl','dt','dd','sup','br','kbd']
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'style','src','width','height']
+FONTAWESOME_CSS_URL = '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
 SERIALIZATION_MODULES = {
     'xml':    'tagulous.serializers.xml_serializer',
     'json':   'tagulous.serializers.json',
