@@ -84,7 +84,7 @@ class PostIndexView(PaginatedListView):
             posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
 
         else:
-            users_sources = FeedSource.objects.filter(user=self.request.user)
+            users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
             user_source_pks = users_sources.values_list('id', flat=True)
             posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
 

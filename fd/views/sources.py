@@ -23,7 +23,7 @@ class SourceCreate(LoginRequiredMixin, CreateView):
 class SourceEdit(UpdateView):
     template_name = 'fd/edit_sources.html'
     model = FeedSource
-    fields = ['title', 'tags']
+    fields = ['title', 'tags', 'show_on_frontpage']
     success_url = reverse_lazy('source_list')
 
 class SourceList(PaginatedListView):
