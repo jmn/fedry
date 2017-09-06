@@ -2,3 +2,8 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+.btn-social {
+    color: white !important;
+    max-width: 24em;
+}
