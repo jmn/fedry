@@ -32,12 +32,8 @@ class FeedSource(models.Model):
         unique_together = (("user", "feed"))
         
 class FeedPost(models.Model):
-<<<<<<< HEAD
-    feed = models.ForeignKey(FeedSource)
-=======
     feed = models.ForeignKey(Feed)
     feed_sources = models.ManyToManyField(FeedSource)
->>>>>>> ab0ee2ffe39636057c4dbca23b54f9b457fbebe4
     title = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
     author = models.CharField(max_length=200)
