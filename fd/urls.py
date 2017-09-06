@@ -10,7 +10,7 @@ from fd.views.sources import *
 # e.g. I read Haskell at fedry.net/~jmn/haskell
 
 urlpatterns = [
-    url(r'^$', PostIndexView.as_view()),
+    url(r'^$', PostIndexView.as_view(), name='home'),
 #    url(r'^$', views.index),    
 #    url(r'^(?P<tag>[\w-]+)$', views.posts_by_tags, name='tags'),
     url(r'^view/(?P<post_id>[\w-]+)$', post_detail, name='post_detail'),

@@ -155,11 +155,14 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'sn:home'
+#LOGIN_REDIRECT_URL = 'sn:home'
+LOGIN_REDIRECT_URL = 'home'
 SOCIAL_AUTH_GITHUB_KEY = '38f135c8216782fed0b3'
 SOCIAL_AUTH_GITHUB_SECRET = 'f086fc11dee76ff7931ec72087b8d24ea3408ac3'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '468496975653-34s4ehtap3k2308cup7062nfsuqie0jd.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'Gdv_G4PQSW_gqpnZlhplggD-'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://b.fedry.net/'
+SOCIAL_AUTH_SANITIZE_REDIRECTS = True
 BLEACH_STRIP_TAGS = True
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a','pre','code','ul','li','h1','h2','h3','h4','h5','blockquote','span','div','table','th','tr','td','thead','tbody','img','aside','ol','dl','dt','dd','sup','br','kbd']
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'style','src','width','height']
