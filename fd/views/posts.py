@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PaginatedListView(ListView):
@@ -66,14 +67,15 @@ class PostList(PaginatedListView):
             
         return context
     
-class PostIndexView(PaginatedListView):
+class PostIndexView(LoginRequiredMixin, PaginatedListView):
+    login_url = '/introduction/'
     template_name = 'fd/topics.html'
     model = FeedPost
     paginate_by = 10
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(PostIndexView, self).dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(PostIndexView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
 
