@@ -137,9 +137,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (                                                                 
   os.path.join(BASE_DIR, 'static/'),                                                
-  BASE_DIR                                                                          
 )             
-STATIC_ROOT = '/home/fedry/static'
+STATIC_ROOT = '/home/fedry/static/static/'
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
