@@ -5,12 +5,15 @@ from fd.views import *
 from fd.views.posts import *
 from fd.views.tags import *
 from fd.views.sources import *
+from django.views.generic import TemplateView
+    
 # fedry.net/v/username/tagname
 # fedry.net/~username/tag1,tag2
 # e.g. I read Haskell at fedry.net/~jmn/haskell
 
 urlpatterns = [
     url(r'^$', PostIndexView.as_view(), name='home'),
+    url(r'^introduction/$', TemplateView.as_view(template_name='fd/landing.html'), name='landing'),    
 #    url(r'^$', views.index),    
 #    url(r'^(?P<tag>[\w-]+)$', views.posts_by_tags, name='tags'),
     url(r'^view/(?P<post_id>[\w-]+)$', post_detail, name='post_detail'),
