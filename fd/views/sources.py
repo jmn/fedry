@@ -5,6 +5,7 @@ from fd.models import FeedSource, FeedPost
 from django.urls import reverse_lazy
 from fd.forms import *
 from fd.views.posts import PaginatedListView # FIXME: Move this class
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 class SourceCreate(LoginRequiredMixin, CreateView):
     model = FeedSource
@@ -26,6 +27,13 @@ class SourceEdit(UpdateView):
     fields = ['title', 'tags', 'show_on_frontpage']
     success_url = reverse_lazy('source_list')
 
+    def get_permission_required(self):
+        return
+
+    def get_queryset(self):
+        base_qs = super(SourceEdit, self).get_queryset()
+        return base_qs.filter(user=self.request.user)
+    
 class SourceList(PaginatedListView):
     model = FeedSource
     paginate_by = 10
