@@ -30,6 +30,7 @@ class SourceEdit(UpdateView):
     def get_permission_required(self):
         return
 
+    # Restrict to editing sources belonging to this user.
     def get_queryset(self):
         base_qs = super(SourceEdit, self).get_queryset()
         return base_qs.filter(user=self.request.user)
