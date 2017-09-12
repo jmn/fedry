@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z41==&_v&t7zop!0ic6j8j#460iqwjbo50^v-s$6s-#_=i*zpg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'fd',
     'dj',
+    'analytical',
     'django_rq',
     'el_pagination',
     'fontawesome',
@@ -192,3 +193,5 @@ RQ_QUEUES = {
         'DB': 0,
     }
 }
+
+GOOGLE_ANALYTICS_PROPERTY_ID  = 'UA-106346242-1'

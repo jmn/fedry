@@ -2,6 +2,7 @@
 {% load static %}
 {% block bootstrap4_extra_head %}
 {% load fontawesome %}
+{% load google_analytics %}
 <!-- <link rel="stylesheet" href="{% static "themes/journal/bootstrap.css" %}"> -->
 <link rel="stylesheet" href="{% static "themes/litera/bootstrap.css" %}">
 {% fontawesome_stylesheet %}
@@ -9,6 +10,7 @@
 <link rel="stylesheet" href="{% static "css/fedry.css" %}">
 <title>Fedry Reader{{ section.title }}</title>
 
+{% google_analytics %}
 {% endblock bootstrap4_extra_head %}        
 {% block bootstrap4_title %} 
 {% block title %}{% endblock %}
