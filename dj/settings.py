@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'fd',
     'dj',
+    'analytical',
     'django_rq',
     'el_pagination',
     'fontawesome',
@@ -192,3 +193,5 @@ RQ_QUEUES = {
         'DB': 0,
     }
 }
+
+GOOGLE_ANALYTICS_PROPERTY_ID  = 'UA-106346242-1'
