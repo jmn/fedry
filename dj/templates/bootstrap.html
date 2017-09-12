@@ -7,7 +7,9 @@
 {% fontawesome_stylesheet %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
 <link rel="stylesheet" href="{% static "css/fedry.css" %}">
+<title>Fedry Reader{{ section.title }}</title>
 
 {% endblock bootstrap4_extra_head %}        
-
-{% block bootstrap4_title %}{% block title %}{% endblock %}{% endblock %}
+{% block bootstrap4_title %} 
+{% block title %}{% endblock %}
+{% endblock %}
