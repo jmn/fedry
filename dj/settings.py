@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'el_pagination',
     'fontawesome',
     'tagulous',
+    'sn',
+    'silk',
     'feeds',
     'django_bleach',
     'django.contrib.admin',
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'bootstrap4',
     'social_django',
 ]
@@ -59,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'silk.middleware.SilkyMiddleware',
 #    'fd.utils.AuthRequiredMiddleware',
 ]
 

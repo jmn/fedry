@@ -31,3 +31,5 @@ urlpatterns = [
     url(r'^', include('fd.urls')),    
 
 ]
+
+urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

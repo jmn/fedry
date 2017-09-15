@@ -2,8 +2,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-from sn.models import Muppet, Post
 from fd.models import FeedSource
+from sn.models import Post
+
 
 class FeedSourceInline(admin.TabularInline):
     model = FeedSource

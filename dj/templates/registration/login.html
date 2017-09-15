@@ -2,21 +2,16 @@
 
 {% block content %}
   <h2>Login</h2>
+
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
   </form>
+
   <br>
   <p><strong>-- OR --</strong></p>
 
-  <!-- <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br> -->
-  <!-- <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br> -->
-
-  <!-- <a class="btn btn-block btn-social btn-twitter"> -->
-  <!--   <span class="fa fa-twitter"></span> Sign in with Twitter -->
-  <!--  </a> -->
-   
   <a class="btn btn-block btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}">
      <span class="fa fa-google"></span> Sign in with Google
    </a>
