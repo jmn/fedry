@@ -31,7 +31,7 @@ class PaginatedListView(ListView):
         context.update({'pages': pages})
         return context
     
-
+# Detailed view
 class PostList(PaginatedListView):
     model = FeedPost
     paginate_by = 3
@@ -42,19 +42,22 @@ class PostList(PaginatedListView):
             tags = self.kwargs['tags']
             users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
             user_source_pks = users_sources.values_list('id', flat=True)
-            posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
+            posts = FeedPost.objects.none()
+
+            for s in users_sources:
+                posts = posts | s.feed.feedpost_set.all()
 
         else:
-            users_sources = FeedSource.objects.filter(user=self.request.user)
+            users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
             user_source_pks = users_sources.values_list('id', flat=True)
-            posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
+            posts = FeedPost.objects.select_related('feed')
 
-        for fs in users_sources: # FIXME: This must be very slow
-            for p in posts:
-                if p.feed == fs.feed:
-                    p.source_title = fs.title
+        # FIXME: slow!:
+        for p in posts:
+            p.source_title = p.feed.feedsource_set.filter(pk__in=user_source_pks)
+
         return posts
-
+        
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(PostList, self).get_context_data(**kwargs)
@@ -84,26 +87,20 @@ class PostIndexView(LoginRequiredMixin, PaginatedListView):
             tags = self.kwargs['tags']
             users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
             user_source_pks = users_sources.values_list('id', flat=True)
-            posts = FeedPost.objects.filter(feed_sources__in=user_source_pks)
+            posts = FeedPost.objects.none()
+
+            for s in users_sources:
+                posts = posts | s.feed.feedpost_set.all()
 
         else:
             users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
             user_source_pks = users_sources.values_list('id', flat=True)
             posts = FeedPost.objects.select_related('feed')
-            for p in posts:
-                p.source_title = p.feed.feedsource_set.filter(pk__in=user_source_pks)
-#                if p.source_title:
-#                    p.source_title = p.source_title.first().title
 
+        # FIXME: slow!:
+        for p in posts:
+            p.source_title = p.feed.feedsource_set.filter(pk__in=user_source_pks)
 
-        
-#        for p in posts: # FIXME: This is equally slow
-#            p.source_title = p.feed_sources.all()[0].title
-
-        # for fs in users_sources: # FIXME: This must be very slow NOTE: THIS IS EXTREMELY COSTLY (one query per post)
-        #     for p in posts:
-        #         if p.feed == fs.feed:
-        #             p.source_title = fs.title
         return posts
 
     def get_context_data(self, **kwargs):
