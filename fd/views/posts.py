@@ -37,23 +37,20 @@ class PostList(PaginatedListView):
     paginate_by = 3
 
     def get_queryset(self):
-
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
             users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
             user_source_pks = users_sources.values_list('id', flat=True)
-            posts = FeedPost.objects.none()
-
-            for s in users_sources:
-                posts = posts | s.feed.feedpost_set.all()
-
+            
         else:
             users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
             user_source_pks = users_sources.values_list('id', flat=True)
-            posts = FeedPost.objects.select_related('feed')
 
-        # FIXME: slow!:
-        for p in posts:
+        posts = FeedPost.objects.none()
+        for s in users_sources:
+            posts = posts | s.feed.feedpost_set.all()
+            
+        for p in posts:         # FIXME: slow!:
             p.source_title = p.feed.feedsource_set.filter(pk__in=user_source_pks)
 
         return posts
@@ -82,27 +79,24 @@ class PostIndexView(LoginRequiredMixin, PaginatedListView):
     #     return super(PostIndexView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
-
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
             users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
             user_source_pks = users_sources.values_list('id', flat=True)
-            posts = FeedPost.objects.none()
-
-            for s in users_sources:
-                posts = posts | s.feed.feedpost_set.all()
-
+            
         else:
             users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
             user_source_pks = users_sources.values_list('id', flat=True)
-            posts = FeedPost.objects.select_related('feed')
 
-        # FIXME: slow!:
-        for p in posts:
+        posts = FeedPost.objects.none()
+        for s in users_sources:
+            posts = posts | s.feed.feedpost_set.all()
+            
+        for p in posts:         # FIXME: slow!:
             p.source_title = p.feed.feedsource_set.filter(pk__in=user_source_pks)
 
         return posts
-
+    
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(PostIndexView, self).get_context_data(**kwargs)
