@@ -23,17 +23,13 @@ class FeedSource(models.Model):
     def __str__(self):
         return self.title
 
-    @property
-    def posting_avg(self):
-        return 47
-
     class Meta:
         ordering = ["title"]
         unique_together = (("user", "feed"))
         
 class FeedPost(models.Model):
     feed = models.ForeignKey(Feed)
-    feed_sources = models.ManyToManyField(FeedSource)
+#    feed_sources = models.ManyToManyField(FeedSource)
     title = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
     author = models.CharField(max_length=200)
@@ -44,5 +40,3 @@ class FeedPost(models.Model):
     class Meta:
         ordering = ["-date_published"]
         unique_together = (("feed", "url")) # FIXME: quick hack.
-    # def __str__(self): # FIXME: is it safe to use self.title?
-    #     return self.

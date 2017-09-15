@@ -9,7 +9,7 @@
       <ul class="list-unstyled">
         {% if object_list %}
         {% for post in object_list %}
-        <li><h5><a class="text-gray-dark bg-faded" href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> <small>{{ post.source_title }}, <em>{{ post.date_published }}</em></small></h5>
+        <li><h5><a class="text-gray-dark bg-faded" href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> <small>{{ post.source_title.first.title }}, <em>{{ post.date_published }}</em></small></h5>
         </li>
         {% endfor %}
         {% else %}

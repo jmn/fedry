@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.utils import timezone
 
 # Create your views here.
 from .forms import PostForm
 from .models import Post
+
 
 def index (request):
     return render(request, 'sn/index.html')
