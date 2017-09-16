@@ -107,7 +107,6 @@ def insert_posts(feedsource, entries):
                       'date_acquired': datetime.now(),
                       'date_published': pub_date}
         )
-        fp.feed_sources.add(feedsource)
         fp.save()
 
         if created:
