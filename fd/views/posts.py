@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.db.models import F
 
 class PaginatedListView(ListView):
     def get_context_data(self, **kwargs):
@@ -40,21 +40,14 @@ class PostList(PaginatedListView):
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
             users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
-            user_source_pks = users_sources.values_list('id', flat=True)
             
         else:
             users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
-            user_source_pks = users_sources.values_list('id', flat=True)
 
-        posts = FeedPost.objects.none()
-        for s in users_sources:
-            posts = posts | s.feed.feedpost_set.all()
-            
-        for p in posts:         # FIXME: slow!:
-            p.source_title = p.feed.feedsource_set.filter(pk__in=user_source_pks)
+        return FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(
+            source_title=F('feed__feedsource__title')
+        )
 
-        return posts
-        
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(PostList, self).get_context_data(**kwargs)
@@ -67,35 +60,25 @@ class PostList(PaginatedListView):
             context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
             
         return context
-    
+
+# overview    
 class PostIndexView(LoginRequiredMixin, PaginatedListView):
     login_url = '/introduction/'
     template_name = 'fd/topics.html'
     model = FeedPost
     paginate_by = 10
 
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(PostIndexView, self).dispatch(*args, **kwargs)
-
     def get_queryset(self):
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
             users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
-            user_source_pks = users_sources.values_list('id', flat=True)
             
         else:
             users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
-            user_source_pks = users_sources.values_list('id', flat=True)
 
-        posts = FeedPost.objects.none()
-        for s in users_sources:
-            posts = posts | s.feed.feedpost_set.all()
-            
-        for p in posts:         # FIXME: slow!:
-            p.source_title = p.feed.feedsource_set.filter(pk__in=user_source_pks)
-
-        return posts
+        return FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(
+            source_title=F('feed__feedsource__title')
+        )
     
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
