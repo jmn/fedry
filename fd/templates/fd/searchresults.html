@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bleach_tags %}
+{% load fontawesome %}
+
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content|bleach }}</p>    
+
+    {% if next_post %}
+    <a class="btn btn-primary" href="{% url 'post_detail' next_post.pk %}">Newer</a>
+    {% else %}
+    <a class="btn btn-primary disabled" href="#">Newer</a>
+    {% endif %}
+
+
+    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span>{% fontawesome_icon 'chevron-up' large=True %}</span></a>
+
+    {% if prev_post %}
+    <a class="btn btn-primary" href="{% url 'post_detail' prev_post.pk %}">Older</a>
+    {% else %}
+    <a class="btn btn-primary disabled" href="#">Older</a>
+    {% endif %}
+
+   
+
+{% endblock %}
+
