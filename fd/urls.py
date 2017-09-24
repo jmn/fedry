@@ -5,6 +5,7 @@ from fd.views import *
 from fd.views.posts import *
 from fd.views.tags import *
 from fd.views.sources import *
+from fd.views.search import *
 from django.views.generic import TemplateView
     
 # fedry.net/v/username/tagname
@@ -14,11 +15,8 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', PostIndexView.as_view(), name='home'),
     url(r'^introduction/$', TemplateView.as_view(template_name='fd/landing.html'), name='landing'),    
-#    url(r'^$', views.index),    
-#    url(r'^(?P<tag>[\w-]+)$', views.posts_by_tags, name='tags'),
     url(r'^view/(?P<post_id>[\w-]+)$', post_detail, name='post_detail'),
     url(r'^t/(?P<username>[\w-]+)$', tags_overview, name='tags_overview'),
-#    url(r'^t/(?P<username>[\w-]+)/(?P<tags>\w+)$', views.user_tags_overview, name='tags'),
     url(r'^t/(?P<username>[\w-]+)/(?P<tags>\w+)$', PostIndexView.as_view(), name='tags'),
     url(r'^t/(?P<username>[\w-]+)/(?P<tags>\w+)/$', PostList.as_view(), name='tags_detailed'),    
     url(r'^topics/$', PostIndexView.as_view(), name='topics_view'),
@@ -26,4 +24,5 @@ urlpatterns = [
     url(r'^sourcelist/$', SourceList.as_view(), name='source_list'),
     url(r'^edit/(?P<pk>[\w-]+)$', SourceEdit.as_view(), name='source_edit'),
     url(r'^add/$', SourceCreate.as_view(), name='source_create'),
+    url(r'^search/$', PostSearch.as_view(), name='search')
 ]

@@ -40,3 +40,4 @@ class FeedPost(models.Model):
     class Meta:
         ordering = ["-date_published"]
         unique_together = (("feed", "url")) # FIXME: quick hack.
+    

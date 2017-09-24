@@ -23,9 +23,9 @@
     {% endif %}
 
   </ul>
-
-    <input class="form-control" type="search" placeholder="Search..." id="example-search-input">
-
+  <form id="searchform" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+    <input class="form-control" type="search" placeholder="Search..." id="search-input" name='q'>
+  </form>
 
   {% if tag_list %}
   <div class="list-group" id="tag-list">

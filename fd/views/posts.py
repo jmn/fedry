@@ -31,7 +31,7 @@ class PaginatedListView(ListView):
         context.update({'pages': pages})
         return context
     
-# Detailed view
+# Detailed list view
 class PostList(PaginatedListView):
     model = FeedPost
     paginate_by = 3
