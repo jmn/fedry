@@ -6,8 +6,10 @@ from fd.views.posts import *
 from fd.views.tags import *
 from fd.views.sources import *
 from fd.views.search import *
+from fd.views.api.posts import *
 from django.views.generic import TemplateView
-    
+
+
 # fedry.net/v/username/tagname
 # fedry.net/~username/tag1,tag2
 # e.g. I read Haskell at fedry.net/~jmn/haskell
@@ -24,5 +26,6 @@ urlpatterns = [
     url(r'^sourcelist/$', SourceList.as_view(), name='source_list'),
     url(r'^edit/(?P<pk>[\w-]+)$', SourceEdit.as_view(), name='source_edit'),
     url(r'^add/$', SourceCreate.as_view(), name='source_create'),
-    url(r'^search/$', PostSearch.as_view(), name='search')
+    url(r'^search/$', PostSearch.as_view(), name='search'),
+    url(r'^api/v1/posts', posts_list),
 ]
