@@ -205,4 +205,5 @@ GOOGLE_ANALYTICS_PROPERTY_ID  = 'UA-106346242-1'
 CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
     'localhost:8000',
+    'localhost:3000',
 )

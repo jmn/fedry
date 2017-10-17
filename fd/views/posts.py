@@ -9,6 +9,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
+from django.utils.decorators import method_decorator
+
 
 class PaginatedListView(ListView):
     def get_context_data(self, **kwargs):
@@ -30,6 +32,11 @@ class PaginatedListView(ListView):
 
         context.update({'pages': pages})
         return context
+
+class PaginatedProtectedListView(PaginatedListView):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PaginatedProtectedListView, self).dispatch(*args, **kwargs)
     
 # Detailed list view
 class PostList(PaginatedListView):

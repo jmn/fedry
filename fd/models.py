@@ -15,7 +15,7 @@ class Feed(models.Model):
 
 class FeedSource(models.Model):
     user = models.ForeignKey(User)
-    feed = models.ForeignKey(Feed)
+    feed = models.ForeignKey(Feed, on_delete=models.CASCADE) #FIXME: Deletion 
     title = models.CharField(max_length=200)
     show_on_frontpage = models.BooleanField(default=True)
     tags = TagField()
