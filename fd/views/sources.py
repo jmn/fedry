@@ -4,8 +4,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from fd.models import FeedSource, FeedPost
 from django.urls import reverse_lazy
 from fd.forms import *
-from fd.views.posts import PaginatedListView # FIXME: Move this class
+from fd.views.posts import PaginatedProtectedListView # FIXME: Move this class
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views.generic import DeleteView
+from django.core.exceptions import PermissionDenied
+from django.utils.decorators import method_decorator
+
+class PermissionMixin(object):
+    def get_object(self, *args, **kwargs):
+        obj = super(PermissionMixin, self).get_object(*args, **kwargs)
+        if not obj.user == self.request.user:
+            raise PermissionDenied()
+        else:
+            return obj
+        
+class SourceDelete(PermissionMixin, DeleteView):
+    model = FeedSource
+    success_url = reverse_lazy('source_list')
 
 class SourceCreate(LoginRequiredMixin, CreateView):
     model = FeedSource
@@ -34,10 +49,11 @@ class SourceEdit(UpdateView):
     def get_queryset(self):
         base_qs = super(SourceEdit, self).get_queryset()
         return base_qs.filter(user=self.request.user)
-    
-class SourceList(PaginatedListView):
+
+class SourceList(PaginatedProtectedListView):
     model = FeedSource
     paginate_by = 10
     
     def get_queryset(self):
         return FeedSource.objects.filter(user=self.request.user)
+

@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^topics/$', PostIndexView.as_view(), name='topics_view'),
     url(r'^new/$', PostList.as_view(), name='detailed_list'),
     url(r'^sourcelist/$', SourceList.as_view(), name='source_list'),
+    url(r'^sourcelist/delete/(?P<pk>\d+)/$', SourceDelete.as_view(), name='source_delete'),
     url(r'^edit/(?P<pk>[\w-]+)$', SourceEdit.as_view(), name='source_edit'),
     url(r'^add/$', SourceCreate.as_view(), name='source_create'),
     url(r'^search/$', PostSearch.as_view(), name='search'),
