@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'fd',
     'dj',
     'analytical',
+    'rest_framework',
+    'corsheaders',
     'django_rq',
     'el_pagination',
     'fontawesome',
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -199,3 +202,7 @@ RQ_QUEUES = {
 }
 
 GOOGLE_ANALYTICS_PROPERTY_ID  = 'UA-106346242-1'
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8001',
+    'localhost:8000',
+)
