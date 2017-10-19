@@ -14,7 +14,6 @@ ALLOWED_HOSTS = ['*'] # Heroku
 
 # Application definition
 INSTALLED_APPS = [
-    'analytics',
     'rest_framework',
     'corsheaders',
     'django_rq',
@@ -24,6 +23,7 @@ INSTALLED_APPS = [
     'fd',
     'sn',
     'silk',
+    'analytics',
     'feeds',
     'django_bleach',
     'django.contrib.admin',
