@@ -114,10 +114,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (                                                                 
-  os.path.join(BASE_DIR, 'static/'),                                                
-  BASE_DIR                                                                          
-)             
+STATICFILES_DIRS = ('/home/fedry/dj/static')
+#STATICFILES_DIRS = (                                                                 
+#  os.path.join(BASE_DIR, 'static/'),                                                
+#  BASE_DIR                                                                          
+#)             
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
