@@ -43,7 +43,7 @@ def chown():
 def restart():  
     sudo('supervisorctl reread')
     sudo('supervisorctl reload')
-    sudo('service memcached restart')
+#    sudo('service memcached restart')
     sudo('service nginx restart')
 
 
