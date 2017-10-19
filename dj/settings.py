@@ -207,6 +207,21 @@ BOOTSTRAP4 = {
 #     }
 # }
 
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'high': {
+        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'low': {
+        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
+        'DEFAULT_TIMEOUT': 500,
+    }
+}
+
 CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
     'localhost:8000',
