@@ -26,7 +26,7 @@ django-rq==0.9.6
 django-silk==1.0.0
 django-social-auth==0.7.28
 django-tagging==0.4.5
-django_tagulous
+django-tagulous
 djangorestframework==3.6.4
 entrypoints==0.2.3
 feedparser==5.2.1
