@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'fd',
     'sn',
     'silk',
-    'analytics',
+    'analytical',
     'feeds',
     'django_bleach',
     'django.contrib.sites',
@@ -179,6 +179,4 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
 )
 
-GOOGLE_ANALYTICS = {
-    'google_analytics_id': 'UA-106346242-1',
-}
+GOOGLE_ANALYTICS_PROPERTY_ID =  'UA-106346242-1'
