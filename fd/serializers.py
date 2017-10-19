@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from fd.models import FeedPost
-from dj.settings import BLEACH_ALLOWED_TAGS, BLEACH_ALLOWED_ATTRIBUTES
+from dj.settings.production import BLEACH_ALLOWED_TAGS, BLEACH_ALLOWED_ATTRIBUTES
 import bleach
 
 class PostSerializer(serializers.ModelSerializer):
