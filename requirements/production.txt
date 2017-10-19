@@ -103,4 +103,4 @@ wcwidth==0.1.7
 webencodings==0.5.1
 widgetsnbextension==3.0.2
 dj-database-url
-analytical
+django-analytical
