@@ -14,6 +14,7 @@ ALLOWED_HOSTS = ['*'] # Heroku
 
 # Application definition
 INSTALLED_APPS = [
+    'google_analytics'
     'rest_framework',
     'corsheaders',
     'django_rq',
@@ -176,3 +177,7 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
     'localhost:8000',
 )
+
+GOOGLE_ANALYTICS = {
+    'google_analytics_id': 'UA-106346242-1',
+}
