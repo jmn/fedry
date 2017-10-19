@@ -104,19 +104,20 @@ WSGI_APPLICATION = 'dj.wsgi.application'
 # Update database configuration with $DATABASE_URL. # Heroku
 import dj_database_url
 db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'fedry',
-#         'USER': 'postgres',
-#         'PASSWORD': 'aoeuaoeu',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fedry',
+        'USER': 'postgres',
+        'PASSWORD': 'aoeuaoeu',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+DATABASES['default'].update(db_from_env) # Heroku
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
