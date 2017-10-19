@@ -23,22 +23,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z41==&_v&t7zop!0ic6j8j#460iqwjbo50^v-s$6s-#_=i*zpg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-#ALLOWED_HOSTS = ["localhost"]
-ALLOWED_HOSTS = ['*'] # Heroku
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'fd',
+    'dj',
+    'analytical',
     'rest_framework',
     'corsheaders',
     'django_rq',
     'el_pagination',
     'fontawesome',
     'tagulous',
-    'fd',
     'sn',
     'silk',
     'feeds',
@@ -103,9 +104,6 @@ WSGI_APPLICATION = 'dj.wsgi.application'
 # }
 
 # Update database configuration with $DATABASE_URL. # Heroku
-import dj_database_url
-db_from_env = dj_database_url.config()
-
 
 DATABASES = {
     'default': {
@@ -117,8 +115,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
-DATABASES['default'].update(db_from_env) # Heroku
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -160,8 +156,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (                                                                 
   os.path.join(BASE_DIR, 'static/'),                                                
-  BASE_DIR                                                                          
 )             
+STATIC_ROOT = '/home/fedry/static/static/'
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
@@ -230,7 +226,9 @@ RQ_QUEUES = {
     }
 }
 
+GOOGLE_ANALYTICS_PROPERTY_ID  = 'UA-106346242-1'
 CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
     'localhost:8000',
+    'localhost:3000',
 )

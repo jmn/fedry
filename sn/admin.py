@@ -3,8 +3,6 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
 from fd.models import FeedSource
-from sn.models import Post
-
 
 class FeedSourceInline(admin.TabularInline):
     model = FeedSource
@@ -16,4 +14,3 @@ class UserAdmin(BaseUserAdmin):
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-admin.site.register(Post)
