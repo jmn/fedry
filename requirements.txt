@@ -26,7 +26,7 @@ django-rq==0.9.6
 django-silk==1.0.0
 django-social-auth==0.7.28
 django-tagging==0.4.5
--e git+https://github.com/radiac/django-tagulous.git@1e3f3271f24f6f9bb57901e3ca9148d86b003948#egg=django_tagulous
+django_tagulous
 djangorestframework==3.6.4
 entrypoints==0.2.3
 feedparser==5.2.1
@@ -106,3 +106,4 @@ vine==1.1.4
 wcwidth==0.1.7
 webencodings==0.5.1
 widgetsnbextension==3.0.2
+waitress
