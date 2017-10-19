@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'analytics',
     'feeds',
     'django_bleach',
-    'django.contrib.sites'
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
