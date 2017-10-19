@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'analytics',
     'feeds',
     'django_bleach',
+    'django.contrib.sites'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -36,7 +37,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'social_django',
 ]
-
+SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
