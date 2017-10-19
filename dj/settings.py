@@ -186,26 +186,26 @@ BOOTSTRAP4 = {
     'include_jquery' : True,
 }
 
-RQ_QUEUES = {
-    'default': {
-        'HOST': 'localhost',
-        'PORT': 6379,
-        'DB': 0,
-#xb        'PASSWORD': '',
-        'DEFAULT_TIMEOUT': 360,
-    },
-    'high': {
-        'HOST': 'localhost',
-        'PORT': 6379,
-        'DB': 0,
-        'DEFAULT_TIMEOUT': 500,
-    },
-    'low': {
-        'HOST': 'localhost',
-        'PORT': 6379,
-        'DB': 0,
-    }
-}
+# RQ_QUEUES = {
+#     'default': {
+#         'HOST': 'localhost',
+#         'PORT': 6379,
+#         'DB': 0,
+# #xb        'PASSWORD': '',
+#         'DEFAULT_TIMEOUT': 360,
+#     },
+#     'high': {
+#         'HOST': 'localhost',
+#         'PORT': 6379,
+#         'DB': 0,
+#         'DEFAULT_TIMEOUT': 500,
+#     },
+#     'low': {
+#         'HOST': 'localhost',
+#         'PORT': 6379,
+#         'DB': 0,
+#     }
+# }
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
