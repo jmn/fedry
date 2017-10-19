@@ -109,3 +109,4 @@ widgetsnbextension==3.0.2
 waitress
 dj-database-url
 whitenoise
+django-google-analytics

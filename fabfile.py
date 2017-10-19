@@ -58,7 +58,7 @@ def deploy():
         run('git pull origin master')
         with source_virtualenv():
             with prefix('export DJANGO_SETTINGS_MODULE={}.settings.{}'.format(PROJECT_NAME, env.environment)):
-                run('source .env/bin/activate && pip install -r requirements/production.txt')
+                run('source /home/fedry/bin/activate && pip install -r requirements/production.txt')
                 run('./manage.py migrate')
                 run('./manage.py collectstatic --noinput')
 
