@@ -23,23 +23,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z41==&_v&t7zop!0ic6j8j#460iqwjbo50^v-s$6s-#_=i*zpg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ['*'] # Heroku
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'fd',
-    'dj',
-    'analytical',
     'rest_framework',
     'corsheaders',
     'django_rq',
     'el_pagination',
     'fontawesome',
     'tagulous',
+    'fd',
     'sn',
     'silk',
     'feeds',
@@ -104,6 +103,9 @@ WSGI_APPLICATION = 'dj.wsgi.application'
 # }
 
 # Update database configuration with $DATABASE_URL. # Heroku
+# import dj_database_url
+# db_from_env = dj_database_url.config()
+
 
 DATABASES = {
     'default': {
@@ -115,6 +117,8 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+# DATABASES['default'].update(db_from_env) # Heroku
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -156,8 +160,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (                                                                 
   os.path.join(BASE_DIR, 'static/'),                                                
+  BASE_DIR                                                                          
 )             
-STATIC_ROOT = '/home/fedry/static/static/'
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
@@ -190,45 +194,43 @@ BOOTSTRAP4 = {
     'include_jquery' : True,
 }
 
-# RQ_QUEUES = {
-#     'default': {
-#         'HOST': 'localhost',
-#         'PORT': 6379,
-#         'DB': 0,
-# #xb        'PASSWORD': '',
-#         'DEFAULT_TIMEOUT': 360,
-#     },
-#     'high': {
-#         'HOST': 'localhost',
-#         'PORT': 6379,
-#         'DB': 0,
-#         'DEFAULT_TIMEOUT': 500,
-#     },
-#     'low': {
-#         'HOST': 'localhost',
-#         'PORT': 6379,
-#         'DB': 0,
-#     }
-# }
-
 RQ_QUEUES = {
     'default': {
-        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
-        'DEFAULT_TIMEOUT': 500,
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+#        'PASSWORD': '',
+        'DEFAULT_TIMEOUT': 360,
     },
     'high': {
-        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
         'DEFAULT_TIMEOUT': 500,
     },
     'low': {
-        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
-        'DEFAULT_TIMEOUT': 500,
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
     }
 }
 
-GOOGLE_ANALYTICS_PROPERTY_ID  = 'UA-106346242-1'
+# RQ_QUEUES = {
+#     'default': {
+#         'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
+#         'DEFAULT_TIMEOUT': 500,
+#     },
+#     'high': {
+#         'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
+#         'DEFAULT_TIMEOUT': 500,
+#     },
+#     'low': {
+#         'URL': os.getenv('REDIS_URL', 'redis://localhost:6379/0'), # Heroku
+#         'DEFAULT_TIMEOUT': 500,
+#     }
+# }
+
 CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
     'localhost:8000',
-    'localhost:3000',
 )
