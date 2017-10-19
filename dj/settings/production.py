@@ -14,7 +14,7 @@ ALLOWED_HOSTS = ['*'] # Heroku
 
 # Application definition
 INSTALLED_APPS = [
-    'google_analytics',
+    'analytics',
     'rest_framework',
     'corsheaders',
     'django_rq',
