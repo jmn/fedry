@@ -6,6 +6,7 @@ from fd.views.posts import *
 from fd.views.tags import *
 from fd.views.sources import *
 from fd.views.search import *
+from fd.views.profile import *
 from fd.views.api.posts import *
 from django.views.generic import TemplateView
 
@@ -28,5 +29,6 @@ urlpatterns = [
     url(r'^edit/(?P<pk>[\w-]+)$', SourceEdit.as_view(), name='source_edit'),
     url(r'^add/$', SourceCreate.as_view(), name='source_create'),
     url(r'^search/$', PostSearch.as_view(), name='search'),
+    url(r'^profile/$', get_user_profile, name='profile'),
     url(r'^api/v1/posts', posts_list),
 ]

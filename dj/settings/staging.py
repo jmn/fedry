@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'fd',
     'dj',
     'analytical',
+    'paypal.standard.ipn',
     'rest_framework',
     'corsheaders',
     'django_rq',
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'dj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['fd/templates', 'sn/templates', 'dj/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,6 +148,8 @@ BOOTSTRAP4 = {
     'include_jquery' : True,
 }
 
+PAYPAL_TEST = True
+
 # RQ_QUEUES = {
 #     'default': {
 #         'HOST': 'localhost',
@@ -189,3 +192,4 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
     'localhost:3000',
 )
+

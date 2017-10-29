@@ -24,12 +24,11 @@ urlpatterns = [
     url(r'^favicon\.ico$', favicon_view),
     url(r'^admin/', admin.site.urls),
     url(r'^f/', include('feeds.urls')),
-    url(r'^s/', include('sn.urls', namespace='sn')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),  
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
-    url(r'^', include('fd.urls')),    
-
+    url(r'^', include('fd.urls')),
+    url(r'^paypal/', include('paypal.standard.ipn.urls')),
 ]
 
 urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

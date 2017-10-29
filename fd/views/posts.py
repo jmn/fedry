@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
 from django.utils.decorators import method_decorator
+from djstripe.decorators import subscription_payment_required
 
 
 class PaginatedListView(ListView):
@@ -35,6 +36,7 @@ class PaginatedListView(ListView):
 
 class PaginatedProtectedListView(PaginatedListView):
     @method_decorator(login_required)
+    @method_decorator(subscription_payment_required)    
     def dispatch(self, *args, **kwargs):
         return super(PaginatedProtectedListView, self).dispatch(*args, **kwargs)
     
@@ -68,7 +70,8 @@ class PostList(PaginatedListView):
             
         return context
 
-# overview    
+# overview
+
 class PostIndexView(LoginRequiredMixin, PaginatedListView):
     login_url = '/introduction/'
     template_name = 'fd/topics.html'
@@ -99,6 +102,10 @@ class PostIndexView(LoginRequiredMixin, PaginatedListView):
             context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
             
         return context
+
+#    @method_decorator(subscription_payment_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PostIndexView, self).dispatch(*args, **kwargs)
 
 def post_detail(request, post_id):
     # prev_id, next_id as GET Params

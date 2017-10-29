@@ -15,7 +15,21 @@
           <h1>A no-nonsense feed reader</h1>
           <p>Add your favorite news and blog feeds and read them with a modern minimalist layout. Readability is the main focus.</p>
           <a class="btn btn-primary btn-lg" href="{% url 'login' %}?next=/new">Sign in and try freely (Google login)</a>
+
+          <h4>Subscribe</h4>
+          <p>Membership costs $12/year.</p>
+          
+          <!-- <a class="btn btn-primary btn-lg" href="{% url 'login' %}?next=/new">Buy now.  $12/yr via Stripe</a> -->
+
+          <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="N3Z52P9S8JR24">
+            <input type="image" src="https://www.sandbox.paypal.com/en_US/SE/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+          </form>
+
         </div>
+        
         <!-- /.col-md-4 -->
       </div>
       <!-- /.row -->
@@ -28,18 +42,20 @@
       <!-- </div> -->
 
       <!-- Content Row -->
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h2 class="card-title">Tags</h2>
-              <p class="card-text">Tag feeds to separate content.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">More Info</a>
-            </div>
-          </div>
-        </div>
+
+      <!-- <div class="row"> -->
+      <!--   <div class="col-md-4 mb-4"> -->
+      <!--     <div class="card h-100"> -->
+      <!--       <div class="card-body"> -->
+      <!--         <h2 class="card-title">Tags</h2> -->
+      <!--         <p class="card-text">Tag feeds to separate content.</p> -->
+      <!--       </div> -->
+      <!--       <div class="card-footer"> -->
+      <!--         <a href="#" class="btn btn-primary">More Info</a> -->
+      <!--       </div> -->
+      <!--     </div> -->
+      <!--   </div> -->
+        
         <!-- /.col-md-4 -->
         <!-- <div class="col-md-4 mb-4"> -->
         <!--   <div class="card h-100"> -->
@@ -78,7 +94,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Fedry.net 2017</p>
       </div>
       <!-- /.container -->
     </footer>
