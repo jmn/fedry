@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-8 blog-main">
+      <h2>Profile</h2>
+      {{ user }}
+
+      <hr>
+      {{ sub }}
+      <hr>
+      
+      <table>
+        <tr>
+          <td>Subs</td>
+          <td>no</td>
+        </tr>
+      </table>
+
+      Manage Subscription
+
+    </div>
+
+
+    {% include 'fd/sidebar.html' %}
+</div>
+{% endblock %}
