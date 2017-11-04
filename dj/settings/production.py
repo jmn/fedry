@@ -14,6 +14,7 @@ ALLOWED_HOSTS = ['*'] # Heroku
 
 # Application definition
 INSTALLED_APPS = [
+    'djstripe',
     'rest_framework',
     'corsheaders',
     'django_rq',
@@ -182,3 +183,9 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 GOOGLE_ANALYTICS_PROPERTY_ID =  'UA-106346242-1'
+
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "pk_live_2YQdqgsd3JtquaX12gBIsj4O")
+STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "sk_live_GWARAotxGXtZoeTJeLO8TIUl")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_dZCQLCB9Cn1RlBM63vuy3GFg")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_b4ElgT3Wx6vorW3zegyuxRIh")
+STRIPE_LIVE_MODE = True

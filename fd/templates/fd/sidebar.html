@@ -46,6 +46,24 @@
   </ul>
   {% endif %}
 
-
+  <ul class="list-unstyled">
+    <h4>Subscribe</h4>
+    <li>
+      <form action="" method="POST">
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button btn-danger"
+                data-key="pk_live_2YQdqgsd3JtquaX12gBIsj4O"
+                data-amount="1200"
+                data-name="Fedry Reader"
+                data-description="Fedry Reader annual subscription"
+                bitcoin="true"
+                data-email="{{ user.email }}"
+                data-label="Pay with card"   
+                data-panel-label="Subscribe for {% templatetag openvariable %}amount{% templatetag closevariable %}/yr."
+                data-locale="auto">
+        </script>
+      </form>
+    </li>
+  </ul>
+  
 </div>
 
