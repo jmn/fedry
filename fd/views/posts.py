@@ -10,7 +10,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
 from django.utils.decorators import method_decorator
-from djstripe.decorators import subscription_payment_required
 
 
 class PaginatedListView(ListView):
@@ -36,7 +35,6 @@ class PaginatedListView(ListView):
 
 class PaginatedProtectedListView(PaginatedListView):
     @method_decorator(login_required)
-    @method_decorator(subscription_payment_required)    
     def dispatch(self, *args, **kwargs):
         return super(PaginatedProtectedListView, self).dispatch(*args, **kwargs)
     
@@ -103,7 +101,6 @@ class PostIndexView(LoginRequiredMixin, PaginatedListView):
             
         return context
 
-#    @method_decorator(subscription_payment_required)
     def dispatch(self, *args, **kwargs):
         return super(PostIndexView, self).dispatch(*args, **kwargs)
 

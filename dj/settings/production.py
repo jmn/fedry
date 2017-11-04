@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'bootstrap4',
     'social_django',
-    'djstripe',
 ]
 SITE_ID = 1
 MIDDLEWARE = [
@@ -51,7 +50,7 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'silk.middleware.SilkyMiddleware',
 #    'fd.utils.AuthRequiredMiddleware',
-    'djstripe.middleware.SubscriptionPaymentMiddleware',
+#    'djstripe.middleware.SubscriptionPaymentMiddleware',
 
 ]
 

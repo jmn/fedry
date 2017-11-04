@@ -28,7 +28,8 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^', include('fd.urls')),
-    url(r'^paypal/', include('paypal.standard.ipn.urls')),
+    url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
+
 ]
 
 urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

@@ -12,10 +12,11 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'djstripe',
+    'djpaypal',
     'fd',
     'dj',
     'analytical',
-    'paypal.standard.ipn',
     'rest_framework',
     'corsheaders',
     'django_rq',
@@ -33,13 +34,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django.contrib.sites',
     'bootstrap4',
     'social_django',
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -49,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'silk.middleware.SilkyMiddleware',
-#    'fd.utils.AuthRequiredMiddleware',
+    #    'fd.utils.AuthRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'dj.urls'
@@ -148,8 +150,6 @@ BOOTSTRAP4 = {
     'include_jquery' : True,
 }
 
-PAYPAL_TEST = True
-
 # RQ_QUEUES = {
 #     'default': {
 #         'HOST': 'localhost',
@@ -193,3 +193,20 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
 )
 
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "")
+STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_dZCQLCB9Cn1RlBM63vuy3GFg")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_b4ElgT3Wx6vorW3zegyuxRIh")
+#STRIPE_LIVE_MODE = False
+
+# PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "pk_live_2YQdqgsd3JtquaX12gBIsj4O")
+# PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_live_GWARAotxGXtZoeTJeLO8TIUl")
+
+BRAINTREE_PRODUCTION = False  # We'll need this later to switch between the sandbox and live account
+BRAINTREE_MERCHANT_ID = "njx8ydq87sgrn83y"
+BRAINTREE_PUBLIC_KEY = "4b4pz7dg7p4fwm7b"
+BRAINTREE_PRIVATE_KEY = "e0764cfa29d65a5731570aea62c8e33f"
+
+PAYPAL_CLIENT_ID = "AUzrxgYjXV4LnPyTP1GWCg3nWJWyN5lX_hYf9dV6M0Ay2o8qnabCCAe689hOn5NDf3enC0Ou7ERYFLK4"
+PAYPAL_CLIENT_SECRET = "EBzfneeMMgEHOsfYN8Gou0HWCV0Dkyje_tFdMQDT8PFzgw3hMMi5CRur7iuzFDv-F6Rn1dRuM3SN77vE"
+PAYPAL_MODE = "sandbox" # "sandbox" or "live"

@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^add/$', SourceCreate.as_view(), name='source_create'),
     url(r'^search/$', PostSearch.as_view(), name='search'),
     url(r'^profile/$', get_user_profile, name='profile'),
+    url(r'^subscribe/$', subscribe, name='subscribe'),
     url(r'^api/v1/posts', posts_list),
 ]
