@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z41==&_v&t7zop!0ic6j8j#460iqwjbo50^v-s$6s-#_=i*zpg'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
-
+SITE_ID = 1
 INSTALLED_APPS = [
     'djstripe',
     'djpaypal',
