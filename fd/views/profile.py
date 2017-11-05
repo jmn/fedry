@@ -17,9 +17,10 @@ def get_user_profile(request):
             charge = stripe.Customer.create(
                 email=email,
                 source=token,
-                plan='fedry'
+                plan='Fedry'
             )
             messages.info(request, "Payment is successful")
+
         except stripe.error.CardError as e:
             # The card has been declined
             print(e.message)
@@ -44,7 +45,7 @@ def subscribe(request):
             charge = stripe.Customer.create(
                 email=email,
                 source=token,
-                plan='fedry'
+                plan='Fedry'
             )
             messages.info(request, "Payment is successful")
         except stripe.error.CardError as e:
