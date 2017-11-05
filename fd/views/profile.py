@@ -10,7 +10,8 @@ def get_user_profile(request):
 #    customer = customers.get_customer_for_user(request.user)
 #    sub = subscriptions.retrieve(customer, '')
 #    sub = subscriptions.has_active_subscription(customer)
-    sub = None
+
+    sub = djstripe.utils.subscriber_has_active_subscription(request.user)
     return render(request, 'fd/profile.html', {"user": request.user, "sub": sub})
 
 @csrf_exempt
