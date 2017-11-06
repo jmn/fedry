@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^profile/$', get_user_profile, name='profile'),
     url(r'^subscribe/$', subscribe, name='subscribe'),
     url(r'^api/v1/posts', posts_list),
+    url(r'^signup/$', signup, name='signup'),
 ]

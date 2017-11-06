@@ -4,7 +4,10 @@
 
 {% block content %}
     <h2>{{ post.title }}</h2>
-    <p>{{ post.content|bleach }}</p>    
+    <p>{{ post.content|bleach }}</p>
+
+    <a class="btn btn-primary" href="{{ post.url }} target="_blank"">open</a>
+    <br>
 
     {% if next_post %}
     <a class="btn btn-primary" href="{% url 'post_detail' next_post.pk %}">Newer</a>

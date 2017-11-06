@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+from fd.forms import SignUpForm
 import stripe
 import djstripe
-#from pinax.stripe.actions import customers, subscriptions
-
 
 @csrf_exempt
 def get_user_profile(request):
@@ -54,3 +53,21 @@ def subscribe(request):
             pass
         
     return render(request, 'fd/subscribe.html', {"user": request.user})
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'fd/signup.html', {'form': form})
