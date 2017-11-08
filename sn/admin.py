@@ -11,6 +11,14 @@ class FeedSourceInline(admin.TabularInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (FeedSourceInline, )
 
-# Re-register UserAdmin
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    search_fields = ['user_name', 'first_name', 'last_name', 'email', 'num_feeds']
+    list_display = ('username', 'email', 'first_name', 'last_name', 'num_feeds')
+    inlines = (FeedSourceInline, )
+    list_filter = ('is_staff',)
+    def num_feeds(self, obj):
+        return obj.feedsource_set.count()
+    
