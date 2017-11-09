@@ -64,7 +64,7 @@ class PostList(PaginatedListView):
             context['tag_view'] = self.kwargs['tags']
             context['sources_list'] = FeedSource.objects.filter(user=self.request.user, tags=self.kwargs['tags'])
         else:
-            context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
+            context['sources_list'] = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
             
         return context
 
@@ -97,7 +97,7 @@ class PostIndexView(LoginRequiredMixin, PaginatedListView):
             context['tag_view'] = self.kwargs['tags']
             context['sources_list'] = FeedSource.objects.filter(user=self.request.user, tags=self.kwargs['tags'])
         else:
-            context['sources_list'] = FeedSource.objects.filter(user=self.request.user)
+            context['sources_list'] = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
             
         return context
 
