@@ -105,3 +105,4 @@ widgetsnbextension==3.0.2
 dj-database-url
 django-analytical
 dj-stripe
+django-next-prev

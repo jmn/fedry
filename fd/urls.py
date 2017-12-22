@@ -18,7 +18,8 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', PostIndexView.as_view(), name='home'),
     url(r'^introduction/$', TemplateView.as_view(template_name='fd/landing.html'), name='landing'),    
-    url(r'^view/(?P<username>[\w-])/(?P<tags>\w-)/(?P<post_id>[\w-]+)$', post_detail, name='post_detail'),
+#    url(r'^view/(?P<username>[\w-])/(?P<tags>\w-)/(?P<post_id>[\w-]+)$', post_detail, name='post_detail'),
+    url(r'^view/(?P<post_id>[\w-]+)$', post_detail, name='post_detail'),    
     url(r'^t/(?P<username>[\w-]+)$', tags_overview, name='tags_overview'),
     url(r'^t/(?P<username>[\w-]+)/(?P<tags>\w+)$', PostIndexView.as_view(), name='tags'),
     url(r'^t/(?P<username>[\w-]+)/(?P<tags>\w+)/$', PostList.as_view(), name='tags_detailed'),    
