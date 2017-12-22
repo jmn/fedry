@@ -41,3 +41,9 @@ class FeedPost(models.Model):
         ordering = ["-date_published"]
         unique_together = (("feed", "url")) # FIXME: quick hack.
     
+    def get_absolute_url(self, username, tags):
+        from django.urls import reverse
+        return reverse('post_detail', args=[str(self.id)])
+        return reverse('post_detail', kwargs={'username': username,
+                                              'tags': tags,
+                                              'id': self.id})    

@@ -69,6 +69,13 @@ class PostList(PaginatedListView):
         return context
 
 # overview
+from django.db.models import Value, CharField, Func
+from django.db.models.expressions import  RawSQL
+from next_prev import next_in_order, prev_in_order
+
+class LagLead(Func):
+    function = 'LAG'
+    template = '%(function)s(id) OVER (ORDER BY id)'
 
 class PostIndexView(LoginRequiredMixin, PaginatedListView):
     login_url = '/introduction/'
@@ -79,14 +86,20 @@ class PostIndexView(LoginRequiredMixin, PaginatedListView):
     def get_queryset(self):
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
-            users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
-            
+            users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)  
+          
         else:
             users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
+        return FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(source_title=F('feed__feedsource__title'))
 
-        return FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(
-            source_title=F('feed__feedsource__title')
-        )
+#        return FeedPost.objects.annotate(next=RawSQL("lead(id) OVER (ORDER BY id)", []))
+       # return FeedPost.objects.filter(feed__feedsource__in=users_sources).extra(select={'next': 'LEAD(fd_feedpost.id) OVER (ORDER BY fd_feedpost.id)'}).extra(select={'prev': 'LAG(fd_feedpost.id) OVER (ORDER BY fd_feedpost.id)'}).annotate(source_title=F('feed__feedsource__title'))
+#            "lag(fd_feedpost.id) over (order by fd_feedpost.id)"
+#            , []
+#        )).annotate(source_title=F('feed__feedsource__title'))
+    #        return FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(next=RawSQL("select *, lag(id) over (order by id) from fd_feedpost", ()))
+#        )
+# .annotate(            source_title=F('feed__feedsource__title'))
     
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -108,13 +121,14 @@ def post_detail(request, post_id):
     # prev_id, next_id as GET Params
     
     post = get_object_or_404(FeedPost, pk=post_id)
+    users_sources = FeedSource.objects.filter(user=request.user, show_on_frontpage=True)
     try:
-        next_post = FeedPost.get_next_by_date_published(post) # FIXME: This is sketchy because of it's not context-aware.
+        next_post = next_in_order(post, FeedPost.objects.filter(feed__feedsource__in=users_sources))
     except FeedPost.DoesNotExist:
         next_post = ''
         
     try:
-        prev_post = FeedPost.get_previous_by_date_published(post)
+        prev_post = prev_in_order(post, FeedPost.objects.filter(feed__feedsource__in=users_sources))
     except FeedPost.DoesNotExist:
         prev_post = ''
         

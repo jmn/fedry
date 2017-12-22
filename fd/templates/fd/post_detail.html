@@ -9,6 +9,7 @@
     <a class="btn btn-primary" href="{{ post.url }} target="_blank"">open</a>
     <br>
 
+    
     {% if next_post %}
     <a class="btn btn-primary" href="{% url 'post_detail' next_post.pk %}">Newer</a>
     {% else %}

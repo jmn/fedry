@@ -11,3 +11,7 @@ img {
 h4 {
     margin-top: 1em !important;
 }
+
+.card {
+    border: none !important;
+}
