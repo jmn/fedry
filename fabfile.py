@@ -55,6 +55,7 @@ def deploy():
     sudo('chown -R %s:%s %s' % (env.user, env.user, PROJECT_ROOT))
 
     with cd(PROJECT_ROOT):
+        print('Pulling origin master')
         run('git pull origin master')
         with source_virtualenv():
             with prefix('export DJANGO_SETTINGS_MODULE={}.settings.{}'.format(PROJECT_NAME, env.environment)):
