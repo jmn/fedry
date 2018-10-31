@@ -12,6 +12,11 @@ TODO:
 2. run `python manage.py runserver`.
 
 ## Deploying
-   `fab production deploy`
+Run fab from the host machine:
+
+- `ssh i.jmnorlund.net`
+- `sudo su - fedry`
+- `cd ~/dj && fab production deploy`
+
 
    Use the above command to deploy with production settings to the production site.
