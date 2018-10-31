@@ -2,6 +2,10 @@ import os
 from contextlib import contextmanager  
 from fabric.api import cd, env, prefix, run, sudo, task
 
+# To debug uncomment the following 2 lines:
+# import logging
+# logging.basicConfig(level=logging.DEBUG)
+
 
 PROJECT_NAME = 'dj'  
 PROJECT_ROOT = '/home/fedry/%s' % PROJECT_NAME  

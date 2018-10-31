@@ -2,7 +2,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Sign up</h2>
+<h2>Sign up</h2>
+
+  <br>
+    <a class="btn btn-block btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}">
+     <span class="fa fa-google"></span> Sign up with Google
+   </a>
+       <a class="btn btn-block btn-social btn-github" href="{% url 'social:begin' 'github' %}" >
+            <span class="fa fa-github"></span> Sign up using GitHub
+       </a>
+
+  <hr>
+  -- OR --
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -20,15 +31,6 @@
     <button type="submit">Sign up</button>
   </form>
 
-  <hr>
-  -- OR --
-  <br>
-    <a class="btn btn-block btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}">
-     <span class="fa fa-google"></span> Sign in with Google
-   </a>
-       <a class="btn btn-block btn-social btn-github" href="{% url 'social:begin' 'github' %}" >
-            <span class="fa fa-github"></span> Sign in with GitHub
-       </a>
 
 {% endblock %}
 

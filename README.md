@@ -7,6 +7,10 @@ TODO:
         Pagination: Use digg style/google style (endless) pagination
         http://django-el-pagination.readthedocs.io/en/latest/index.html
 
+## Development
+1. run `redis-server`
+2. run `python manage.py runserver`.
+
 ## Deploying
    `fab production deploy`
 
