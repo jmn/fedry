@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'tagulous',
     'fd',
     'sn',
+    'oauth',
     'silk',
     'analytical',
     'feeds',
