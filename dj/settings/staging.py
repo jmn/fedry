@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'djpaypal',
     'fd',
     'dj',
+    'oauth',
     'analytical',
     'rest_framework',
     'corsheaders',

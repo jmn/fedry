@@ -2,6 +2,7 @@ from django.conf.urls import url, include
 
 from . import views
 from fd.views import *
+from sn.views import *
 from fd.views.posts import *
 from fd.views.tags import *
 from fd.views.sources import *
@@ -34,4 +35,7 @@ urlpatterns = [
     url(r'^subscribe/$', subscribe, name='subscribe'),
     url(r'^api/v1/posts', posts_list),
     url(r'^signup/$', signup, name='signup'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')), 
+    # url(r'^register-by-token/(?P<backend>[^/]+)/$',
+    #     register_by_access_token, name='api.login')
 ]
