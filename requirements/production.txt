@@ -106,4 +106,3 @@ dj-stripe
 django-next-prev
 sentry-sdk
 raven
-silk
