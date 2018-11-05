@@ -44,12 +44,16 @@ class PostList(PaginatedListView):
     paginate_by = 3
 
     def get_queryset(self):
+        if 'username' in self.kwargs:
+            uname = self.kwargs['username']
+        else:
+            uname = self.request.user.username
+
         if 'tags' in self.kwargs:
             tags = self.kwargs['tags']
-            users_sources = FeedSource.objects.filter(user=self.request.user, tags=tags)
-            
+            users_sources = FeedSource.objects.filter(username=uname, tags=tags)
         else:
-            users_sources = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
+            users_sources = FeedSource.objects.filter(username=uname, show_on_frontpage=True)
 
         return FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(
             source_title=F('feed__feedsource__title')
@@ -58,13 +62,13 @@ class PostList(PaginatedListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(PostList, self).get_context_data(**kwargs)
-        context['tag_list'] = FeedSource.tags.tag_model.objects.filter_or_initial(feedsource__user=self.request.user).distinct()
+        context['tag_list'] = FeedSource.tags.tag_model.objects.filter_or_initial(feedsource__username=uname).distinct()
 
         if 'tags' in self.kwargs:
             context['tag_view'] = self.kwargs['tags']
-            context['sources_list'] = FeedSource.objects.filter(user=self.request.user, tags=self.kwargs['tags'])
+            context['sources_list'] = FeedSource.objects.filter(username=uname, tags=self.kwargs['tags'])
         else:
-            context['sources_list'] = FeedSource.objects.filter(user=self.request.user, show_on_frontpage=True)
+            context['sources_list'] = FeedSource.objects.filter(username=uname, show_on_frontpage=True)
             
         return context
 
