@@ -22,7 +22,7 @@ rq
 rq-scheduler
 urllib3
 django-analytical
--e git+https://github.com/dj-stripe/dj-stripe.git#egg=dj-stripe
+dj-stripe==1.2.0
 dj-paypal
 django-next-prev
 sentry-sdk
