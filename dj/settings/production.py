@@ -15,7 +15,6 @@ ALLOWED_HOSTS = ['*'] # Heroku
 # Application definition
 INSTALLED_APPS = [
     'djstripe',
-    'rest_framework',
     'corsheaders',
     'django_rq',
     'el_pagination',
