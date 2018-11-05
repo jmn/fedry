@@ -9,7 +9,9 @@ TODO:
 
 ## Development
 1. run `redis-server`
-2. run `python manage.py runserver`.
+2. Activate the virtualenv `env\Scripts\activate.bat`
+2.a. Install the requirements `pip install -r production\requirements.txt`
+3. run `python manage.py runserver`.
 
 ## Deploying
 Run fab from the host machine:

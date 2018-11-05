@@ -14,7 +14,7 @@ class Feed(models.Model):
         return self.url
 
 class FeedSource(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE) #FIXME: Deletion 
     title = models.CharField(max_length=200)
     show_on_frontpage = models.BooleanField(default=True)
@@ -28,7 +28,7 @@ class FeedSource(models.Model):
         unique_together = (("user", "feed"))
         
 class FeedPost(models.Model):
-    feed = models.ForeignKey(Feed)
+    feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
 #    feed_sources = models.ManyToManyField(FeedSource)
     title = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
