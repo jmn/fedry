@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'bootstrap4',
     'social_django',
+    'debug_toolbar',
+
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'silk.middleware.SilkyMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     #    'fd.utils.AuthRequiredMiddleware',
 ]
 
@@ -113,7 +116,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (                                                                 
-  os.path.join(BASE_DIR, '..', 'static/'),
+  os.path.join(BASE_DIR, '..', 'static'),
   BASE_DIR
 )             
 
@@ -210,3 +213,4 @@ BRAINTREE_PRIVATE_KEY = "e0764cfa29d65a5731570aea62c8e33f"
 PAYPAL_CLIENT_ID = "AUzrxgYjXV4LnPyTP1GWCg3nWJWyN5lX_hYf9dV6M0Ay2o8qnabCCAe689hOn5NDf3enC0Ou7ERYFLK4"
 PAYPAL_CLIENT_SECRET = "EBzfneeMMgEHOsfYN8Gou0HWCV0Dkyje_tFdMQDT8PFzgw3hMMi5CRur7iuzFDv-F6Rn1dRuM3SN77vE"
 PAYPAL_MODE = "sandbox" # "sandbox" or "live"
+INTERNAL_IPS = ['127.0.0.1']
