@@ -32,7 +32,7 @@
   <div class="list-group" id="tag-list">
     <h4>Tags</h4>
     {% for tag in tag_list %}
-    <a href="{% url 'tags' request.user.username tag %}" class="list-group-item {% if tag_view == tag %} active {% endif %}">{{tag}}</a>
+     <a href="{% url 'tags' request.user tag %}" class="list-group-item {% if tag_view == tag %} active {% endif %}">{{tag}}</a>
     {% endfor %}
   </div>
   {% endif %}
