@@ -8,7 +8,7 @@ from fd.views.tags import *
 from fd.views.sources import *
 from fd.views.search import *
 from fd.views.profile import *
-from fd.views.api.posts import *
+#from fd.views.api.posts import *
 from django.views.generic import TemplateView
 
 
@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^search/$', PostSearch.as_view(), name='search'),
     url(r'^profile/$', get_user_profile, name='profile'),
     url(r'^subscribe/$', subscribe, name='subscribe'),
-    url(r'^api/v1/posts', posts_list),
+#    url(r'^api/v1/posts', posts_list),
     url(r'^signup/$', signup, name='signup'),
     url(r'^oauth/', include('social_django.urls', namespace='social')), 
     # url(r'^register-by-token/(?P<backend>[^/]+)/$',
