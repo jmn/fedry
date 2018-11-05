@@ -18,7 +18,6 @@ INSTALLED_APPS = [
     'dj',
     'oauth',
     'analytical',
-    'rest_framework',
     'corsheaders',
     'django_rq',
     'el_pagination',
@@ -40,7 +39,7 @@ INSTALLED_APPS = [
     'social_django',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',

@@ -1,3 +1,6 @@
+from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.models import User
+
 def posts_by_tags(request, tag): # FIXME: Convert to taglist
     fs = FeedSource.objects.filter(tags=tag)
 
