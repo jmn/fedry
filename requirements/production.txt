@@ -91,8 +91,8 @@ setproctitle==1.1.10
 simplegeneric==0.8.1
 simplejson==3.11.1
 six==1.10.0
-social-auth-app-django==3.1.0
-social-auth-core==2.0.0
+social-auth-app-django==1.2.0
+social-auth-core==1.4.0
 sqlparse==0.2.3
 testpath==0.3.1
 tornado==4.5.2
