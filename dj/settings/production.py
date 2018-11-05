@@ -191,3 +191,11 @@ STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "sk_live_GWARA
 STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_dZCQLCB9Cn1RlBM63vuy3GFg")
 STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_b4ElgT3Wx6vorW3zegyuxRIh")
 STRIPE_LIVE_MODE = True
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://aeee2caa798c4fb5beeee4d18be9ff7c@sentry.io/1316090",
+    integrations=[DjangoIntegration()]
+)
