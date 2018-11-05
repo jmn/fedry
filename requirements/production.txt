@@ -34,7 +34,6 @@ feedreader==0.3.1
 Flask==0.12.2
 future==0.16.0
 gem==0.1.11
-greenlet==0.4.12
 h2==2.5.1
 hpack==2.3.0
 html5lib==0.999999999

@@ -24,8 +24,8 @@ urlpatterns = [
     url(r'^favicon\.ico$', favicon_view),
     url(r'^admin/', admin.site.urls),
     url(r'^f/', include('feeds.urls')),
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^login/$', views.LogoutView.as_view(), name='logout'),
     url(r'^', include('fd.urls')),
     url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
 
