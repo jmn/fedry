@@ -106,4 +106,4 @@ dj-database-url
 django-analytical
 dj-stripe
 django-next-prev
-sentry
+raven
