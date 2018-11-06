@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-    'silk.middleware.SilkyMiddleware',
+#    'silk.middleware.SilkyMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 #    'fd.utils.AuthRequiredMiddleware',
 #    'djstripe.middleware.SubscriptionPaymentMiddleware',
