@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'fontawesome',
     'tagulous',
     'sn',
-    'silk',
+#    'silk',
     'feeds',
     'django_bleach',
     'django.contrib.admin',
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-    'silk.middleware.SilkyMiddleware',
+#    'silk.middleware.SilkyMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     #    'fd.utils.AuthRequiredMiddleware',
 ]

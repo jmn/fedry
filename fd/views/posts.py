@@ -134,15 +134,16 @@ def post_detail(request, post_id):
     # prev_id, next_id as GET Params
     
     post = get_object_or_404(FeedPost, pk=post_id)
-    users_sources = FeedSource.objects.filter(user=request.user, show_on_frontpage=True)
-    try:
-        next_post = next_in_order(post, FeedPost.objects.filter(feed__feedsource__in=users_sources))
-    except FeedPost.DoesNotExist:
-        next_post = ''
+
+    # users_sources = FeedSource.objects.filter(user=request.user, show_on_frontpage=True)
+    # try:
+    #     next_post = next_in_order(post, FeedPost.objects.filter(feed__feedsource__in=users_sources))
+    # except FeedPost.DoesNotExist:
+    #     next_post = ''
         
-    try:
-        prev_post = prev_in_order(post, FeedPost.objects.filter(feed__feedsource__in=users_sources))
-    except FeedPost.DoesNotExist:
-        prev_post = ''
-        
-    return render(request, 'fd/post_detail.html', {'post': post, 'next_post': next_post,'prev_post': prev_post})
+    # try:
+    #     prev_post = prev_in_order(post, FeedPost.objects.filter(feed__feedsource__in=users_sources))
+    # except FeedPost.DoesNotExist:
+    #     prev_post = ''
+#    return render(request, 'fd/post_detail.html', {'post': post, 'next_post': next_post,'prev_post': prev_post}) 
+    return render(request, 'fd/post_detail.html', {'post': post})
