@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'bootstrap4',
     'social_django',
+    'debug_toolbar',
 ]
 SITE_ID = 1
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'silk.middleware.SilkyMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 #    'fd.utils.AuthRequiredMiddleware',
 #    'djstripe.middleware.SubscriptionPaymentMiddleware',
 
@@ -198,3 +200,5 @@ sentry_sdk.init(
     dsn="https://aeee2caa798c4fb5beeee4d18be9ff7c@sentry.io/1316090",
     integrations=[DjangoIntegration()]
 )
+
+INTERNAL_IPS = ['127.0.0.1', '81.226.138.87']
