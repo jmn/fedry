@@ -27,6 +27,6 @@ dj-paypal
 django-next-prev
 sentry-sdk
 raven
-psycopg2
+psycopg2==2.7.5
 whitenoise
 django-debug-toolbar
