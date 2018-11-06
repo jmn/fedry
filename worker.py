@@ -2,6 +2,9 @@ import os
 
 import redis
 from rq import Worker, Queue, Connection
+from django.conf import settings
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dj.settings.production')
 
 listen = ['high', 'default', 'low']
 
