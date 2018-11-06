@@ -121,7 +121,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = ('/home/fedry/dj/static', BASE_DIR)
-STATIC_ROOT = '/home/fedry/static'
+#STATIC_ROOT = '/home/fedry/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 #STATICFILES_DIRS = (                                                                 
 #  os.path.join(BASE_DIR, 'static/'),                                                
 #  BASE_DIR                                                                          
@@ -162,7 +164,6 @@ BOOTSTRAP4 = {
 RQ_QUEUES = {
     'default': {
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
-#        'PASSWORD': '',
         'DEFAULT_TIMEOUT': 360,
     },
     'high': {
