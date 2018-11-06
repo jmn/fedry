@@ -31,3 +31,4 @@ psycopg2-binary==2.7.5
 whitenoise
 django-debug-toolbar
 dj_database_url
+waitress
