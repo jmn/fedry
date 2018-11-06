@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^f/', include('feeds.urls')),
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
-    url(r'^login/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^', include('fd.urls')),
     url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
 

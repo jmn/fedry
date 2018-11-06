@@ -14,6 +14,10 @@ TODO:
 3. run `python manage.py runserver`.
 
 ## Deploying
+New:
+- git push heroku master
+
+Old:
 Run fab from the host machine:
 
 - `ssh i.jmnorlund.net`
