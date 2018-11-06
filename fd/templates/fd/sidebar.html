@@ -28,14 +28,14 @@
     <input class="form-control" type="search" placeholder="Search..." id="search-input" name='q'>
   </form>
 
-  {% if tag_list %}
-  <div class="list-group" id="tag-list">
-    <h4>Tags</h4>
-    {% for tag in tag_list %}
-     <a href="{% url 'tags' request.user.username tag %}" class="list-group-item {% if tag_view == tag %} active {% endif %}">{{tag}}</a>
-    {% endfor %}
-  </div>
-  {% endif %}
+  <!-- {% if tag_list %} -->
+  <!-- <div class="list-group" id="tag-list"> -->
+  <!--   <h4>Tags</h4> -->
+  <!--   {% for tag in tag_list %} -->
+  <!--    <a href="{% url 'tags' request.user.username tag %}" class="list-group-item {% if tag_view == tag %} active {% endif %}">{{tag}}</a> -->
+  <!--   {% endfor %} -->
+  <!-- </div> -->
+  <!-- {% endif %} -->
 
   {% if sources_list %}
   <ul class="list-unstyled">
