@@ -79,20 +79,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dj.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'fedry',
-#         'USER': 'postgres',
-#         'PASSWORD': 'aoeuaoeu',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fedry',
+        'USER': 'postgres',
+        'PASSWORD': 'aoeuaoeu',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 }
+# import dj_database_url
+# DATABASES = {
+#     'default': dj_database_url.config()
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
