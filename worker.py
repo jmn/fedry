@@ -1,7 +1,8 @@
 import os
 
 import redis
-from rq import Worker, Queue, Connection
+from rq import Queue, Connection
+from rq.worker import HerokuWorker as Worker
 from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dj.settings.production')
