@@ -9,7 +9,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
 SECRET_KEY = 'z41==&_v&t7zop!0ic6j8j#460iqwjbo50^v-s$6s-#_=i*zpg'
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*'] # Heroku
 
 # Application definition
