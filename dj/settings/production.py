@@ -91,9 +91,10 @@ WSGI_APPLICATION = 'dj.wsgi.application'
 #         'PORT': '',
 #     }
 # }
-DATABASES = {
-    'default': dj_database_url.config()
-}
+# DATABASES = {
+#     'default': dj_database_url.config()
+# }
+DATABASES['default'] = dj_database_url.config(default='postgres://postgres:aoeuaoeu@localhost:5432/fedry')
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 #db_from_env = dj_database_url.config(conn_max_age=500)
 #DATABASES['default'].update(db_from_env)
