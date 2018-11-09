@@ -13,7 +13,7 @@ django-rq
 -e git+https://github.com/jazzband/django-silk.git#egg=django-silk
 -e git+https://github.com/python-social-auth/social-app-django.git#egg=social-auth-app-django
 django-tagging==0.4.5
--e git+https://github.com/radiac/django-tagulous.git#egg=django_tagulous
+-e git+https://github.com/radiac/django-tagulous.git@develop#egg=django_tagulous
 feedparser==5.2.1
 feedreader==0.3.1
 html5lib==0.999999999
