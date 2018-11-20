@@ -193,3 +193,6 @@ sentry_sdk.init(
 )
 
 INTERNAL_IPS = ['127.0.0.1', '81.226.138.87']
+GRAPHENE = {
+    'SCHEMA': 'dj.schema.schema' # Where your Graphene schema lives
+}
