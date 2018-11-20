@@ -31,3 +31,4 @@ psycopg2-binary==2.7.5
 whitenoise
 django-debug-toolbar
 graphene-django>=2.0
+-e git+https://github.com/philipn/django-rest-framework-filters.git#egg=djangorestframework-filters
