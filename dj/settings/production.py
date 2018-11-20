@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'social_django',
     'debug_toolbar',
+    'graphene_django',
+
 ]
 SITE_ID = 1
 MIDDLEWARE = [

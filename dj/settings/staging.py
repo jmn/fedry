@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'social_django',
     'debug_toolbar',
+    'graphene_django',
 
 ]
 
@@ -218,3 +219,6 @@ PAYPAL_CLIENT_ID = "AUzrxgYjXV4LnPyTP1GWCg3nWJWyN5lX_hYf9dV6M0Ay2o8qnabCCAe689hO
 PAYPAL_CLIENT_SECRET = "EBzfneeMMgEHOsfYN8Gou0HWCV0Dkyje_tFdMQDT8PFzgw3hMMi5CRur7iuzFDv-F6Rn1dRuM3SN77vE"
 PAYPAL_MODE = "sandbox" # "sandbox" or "live"
 INTERNAL_IPS = ['127.0.0.1']
+GRAPHENE = {
+    'SCHEMA': 'dj.schema.schema' # Where your Graphene schema lives
+}

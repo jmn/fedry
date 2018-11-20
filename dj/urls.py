@@ -19,6 +19,7 @@ from django.urls import include, path  # For django versions from 2.0 and up
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import RedirectView
+from graphene_django.views import GraphQLView
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
@@ -30,6 +31,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^', include('fd.urls')),
     url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
+    url(r'^graphql', GraphQLView.as_view(graphiql=True)),
 
 ]
 

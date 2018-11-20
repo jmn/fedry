@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from tagulous.models import TagField
-# Create your models here.
 
 class Feed(models.Model):
     url = models.URLField(max_length=200)
@@ -29,7 +28,6 @@ class FeedSource(models.Model):
         
 class FeedPost(models.Model):
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
-#    feed_sources = models.ManyToManyField(FeedSource)
     title = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
     author = models.CharField(max_length=200)
