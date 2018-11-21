@@ -122,7 +122,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = (                                                                 
  os.path.join(BASE_DIR, 'static/'),                                                
- BASE_DIR                                                                          
 )             
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
