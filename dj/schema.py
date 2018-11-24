@@ -17,12 +17,13 @@ class PostType(DjangoObjectType):
         
 class Query(graphene.ObjectType):
     post = graphene.Node.Field(PostType, username = graphene.String())
-    all_posts = DjangoFilterConnectionField(PostType, username=graphene.String())
+    all_posts = DjangoFilterConnectionField(PostType, username=graphene.String(required=True))
     reverse = graphene.String(word=graphene.String())
 
     def resolve_reverse(self, info, word):
         return word[::-1]
 
+    # https://stackoverflow.com/a/39774434/41829
     def resolve_all_posts(self, info, **kwargs):
         username = kwargs.get('username')
         u = User.objects.get(username=username) 
