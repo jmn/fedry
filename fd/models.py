@@ -34,7 +34,7 @@ class FeedPost(models.Model):
     content = models.TextField()
     date_acquired = models.DateTimeField()
     date_published = models.DateTimeField()
-
+        
     class Meta:
         ordering = ["-date_published"]
         unique_together = (("feed", "url")) # FIXME: quick hack.
