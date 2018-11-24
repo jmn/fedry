@@ -27,7 +27,7 @@ class Query(graphene.ObjectType):
     def resolve_all_posts(self, info, **kwargs):
         username = kwargs.get('username')
         u = User.objects.get(username=username) 
-        users_sources = FeedSource.objects.filter(user=u)
+        users_sources = FeedSource.objects.filter(user=u, show_on_frontpage=True)
         return FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(
             source_title=F('feed__feedsource__title')
         )
