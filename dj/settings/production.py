@@ -173,6 +173,7 @@ RQ_QUEUES = {
 CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
     'localhost:8000',
+    'reader.fedry.net',
 )
 
 GOOGLE_ANALYTICS_PROPERTY_ID =  'UA-106346242-1'
