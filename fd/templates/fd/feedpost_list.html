@@ -9,7 +9,7 @@
     {% paginate object_list %}
     {% for post in object_list %}
     <div>
-        <h2>{{ post.title }}<span class="badge badge-light">Light</span></h2>
+        <h2>{{ post.title }}</h2>
           <p>{{ post.content|bleach }}</p>
           <hr>
     </div>        
