@@ -27,7 +27,7 @@ class Tags(graphene.ObjectType):
     
 class Query(graphene.ObjectType):
     post = graphene.Node.Field(PostType, username = graphene.String())
-    all_posts = DjangoFilterConnectionField(PostType, username=graphene.String(required=True), q=graphene.String())
+    all_posts = DjangoFilterConnectionField(PostType, username=graphene.String(required=True), q=graphene.String(), tags=graphene.String())
     all_tags = graphene.List(Tags, username=graphene.String())
 
     # This is weird. Passing args with graphene:
@@ -41,11 +41,15 @@ class Query(graphene.ObjectType):
         username = kwargs.get('username')
         u = User.objects.get(username=username)
         searchterm = kwargs.get('q')
-        users_sources = FeedSource.objects.filter(user=u, show_on_frontpage=True)
-
+        tags = kwargs.get('tags')
+        
+        if tags:
+            users_sources = FeedSource.objects.filter(user=u, tags=tags, show_on_frontpage=True)
+        else:
+            users_sources = FeedSource.objects.filter(user=u, show_on_frontpage=True)
         if searchterm:
             queryset = FeedPost.objects.filter(feed__feedsource__in=users_sources).filter(Q(title__icontains=searchterm) | Q(content__icontains=searchterm)).annotate(source_title=F('feed__feedsource__title'))
-        else:
+        else: 
             queryset = FeedPost.objects.filter(feed__feedsource__in=users_sources).annotate(
                 source_title=F('feed__feedsource__title'))
         return queryset
