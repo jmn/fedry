@@ -5,23 +5,36 @@ from django.contrib.auth.models import User
 from fd.models import FeedPost, FeedSource
 from django.db import models
 from django.db.models import F, Q
+import tagulous.models
 import graphene
 
 class PostType(DjangoObjectType):
-    username = graphene.Field(graphene.String, required=True)
 
     class Meta:
         model = FeedPost
         interfaces = (graphene.relay.Node,)
         filter_fields = ['feed']
 
+class Tags(graphene.ObjectType):
+    tag_list = graphene.List(graphene.String)
+
+    def resolve_tag_list(self, info):
+        username = info.context.args.get('username')
+        u = User.objects.get(username=username)
+        f = FeedSource.tags.tag_model.objects.filter_or_initial(feedsource__user=u).distinct()
+        tags = [tag.name for tag in f.all()]
+        return tags
+    
 class Query(graphene.ObjectType):
     post = graphene.Node.Field(PostType, username = graphene.String())
     all_posts = DjangoFilterConnectionField(PostType, username=graphene.String(required=True), q=graphene.String())
-    reverse = graphene.String(word=graphene.String())
+    all_tags = graphene.List(Tags, username=graphene.String())
 
-    def resolve_reverse(self, info, word):
-        return word[::-1]
+    # This is weird. Passing args with graphene:
+    # https://github.com/graphql-python/graphene/issues/378#issuecomment-352206929
+    def resolve_all_tags(self, info, **kwargs):
+        info.context.args = dict(username=kwargs.get("username"))
+        return [Tags()] 
 
     # https://stackoverflow.com/a/39774434/41829
     def resolve_all_posts(self, info, **kwargs):
