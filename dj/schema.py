@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import F, Q
 import tagulous.models
 import graphene
+from graphql_relay.node.node import from_global_id
 
 class PostType(DjangoObjectType):
 
@@ -27,7 +28,7 @@ class Tags(graphene.ObjectType):
     
 class Query(graphene.ObjectType):
     post = graphene.Node.Field(PostType, username = graphene.String())
-    all_posts = DjangoFilterConnectionField(PostType, username=graphene.String(required=True), q=graphene.String(), tags=graphene.String())
+    all_posts = DjangoFilterConnectionField(PostType, id=graphene.ID(), username=graphene.String(required=True), q=graphene.String(), tags=graphene.String())
     all_tags = graphene.List(Tags, username=graphene.String())
 
     # This is weird. Passing args with graphene:
@@ -42,7 +43,11 @@ class Query(graphene.ObjectType):
         u = User.objects.get(username=username)
         searchterm = kwargs.get('q')
         tags = kwargs.get('tags')
-        
+        id = kwargs.get('id')
+        if id:
+            rid = from_global_id(id)[1]
+            return (FeedPost.objects.all().filter(pk=rid))
+
         if tags:
             users_sources = FeedSource.objects.filter(user=u, tags=tags, show_on_frontpage=True)
         else:
