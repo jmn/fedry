@@ -47,7 +47,7 @@ class Query(graphene.ObjectType):
 
     # This is weird. Passing args with graphene:
     # https://github.com/graphql-python/graphene/issues/378#issuecomment-352206929
-    @login_required
+#    @login_required
     def resolve_all_tags(self, info, **kwargs):
         info.context.args = dict(username=kwargs.get("username"))
         return [Tags()] 
