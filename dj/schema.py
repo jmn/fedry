@@ -21,7 +21,7 @@ class PostType(DjangoObjectType):
 class Tags(graphene.ObjectType):
     tag_list = graphene.List(graphene.String)
 
-    @login_required
+#    @login_required
     def resolve_tag_list(self, info):
         username = info.context.args.get('username')
         u = User.objects.get(username=username)
