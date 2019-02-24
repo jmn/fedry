@@ -40,8 +40,22 @@ INSTALLED_APPS = [
     'social_django',
     'debug_toolbar',
     'graphene_django',
-
+    'rest_framework'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +72,8 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 #    'fd.utils.AuthRequiredMiddleware',
 #    'djstripe.middleware.SubscriptionPaymentMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+
 
 ]
 
@@ -126,6 +142,7 @@ STATICFILES_DIRS = (
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
+    'graphql_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -195,4 +212,11 @@ sentry_sdk.init(
 INTERNAL_IPS = ['127.0.0.1', '81.226.138.87']
 GRAPHENE = {
     'SCHEMA': 'dj.schema.schema' # Where your Graphene schema lives
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+
+JWT_AUTH = {
+    'JWT_AUTH_COOKIE': 'fedry',
+    }

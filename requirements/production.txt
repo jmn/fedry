@@ -32,3 +32,5 @@ whitenoise
 django-debug-toolbar
 graphene-django>=2.0
 -e git+https://github.com/philipn/django-rest-framework-filters.git#egg=djangorestframework-filters
+djangorestframework-jwt
+django-graphql-jwt

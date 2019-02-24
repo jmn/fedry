@@ -222,3 +222,7 @@ INTERNAL_IPS = ['127.0.0.1']
 GRAPHENE = {
     'SCHEMA': 'dj.schema.schema' # Where your Graphene schema lives
 }
+
+JWT_AUTH = {
+    'JWT_AUTH_COOKIE': 'fedry',
+}

@@ -13,6 +13,9 @@ TODO:
 2.a. Install the requirements `pip install -r production\requirements.txt`
 3. run `python manage.py runserver`.
 
+## Run as production
+`DJANGO_SETTINGS_MODULE=dj.settings.production python3 manage.py runserver`
+
 ## Deploying
 New:
 - git push heroku master
