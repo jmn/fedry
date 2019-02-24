@@ -35,7 +35,6 @@ class Tags(graphene.ObjectType):
 #         name = graphene.String()
         
 class Query(graphene.ObjectType):
-    current_user = graphene.Field(UserType)
     post = graphene.Node.Field(PostType, username = graphene.String())
     all_posts = DjangoFilterConnectionField(PostType, id=graphene.ID(), username=graphene.String(required=True), q=graphene.String(), tags=graphene.String())
     all_tags = graphene.List(Tags, username=graphene.String())
@@ -48,13 +47,8 @@ class Query(graphene.ObjectType):
 
     # This is weird. Passing args with graphene:
     # https://github.com/graphql-python/graphene/issues/378#issuecomment-352206929
-
+    @login_required
     def resolve_all_tags(self, info, **kwargs):
-        user = info.context.user
-        if not user.is_authenticated:
-            raise Exception('Authentication credentials were not provided')
-#        return user
-
         info.context.args = dict(username=kwargs.get("username"))
         return [Tags()] 
 
