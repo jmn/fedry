@@ -2,7 +2,7 @@
 from graphene_django import DjangoObjectType
 from graphene_django.filter.fields import DjangoFilterConnectionField
 from django.contrib.auth.models import User
-from fd.models import FeedPost, FeedSource
+from fd.models import FeedPost, FeedSource, Feed
 from django.db import models
 from django.db.models import F, Q
 import tagulous.models
@@ -11,10 +11,43 @@ from graphql_relay.node.node import from_global_id
 import graphql_jwt
 from graphql_jwt.decorators import login_required
 
+class FeedSourceType(DjangoObjectType):
+    class Meta:
+        model = FeedSource
+
+class CreateFeedSource(graphene.Mutation):
+    id = graphene.Int()
+    url = graphene.String()
+    title = graphene.String()
+#    tags = todo
+    
+    class Arguments:
+        url = graphene.String()
+        title = graphene.String()
+
+    @login_required
+    def mutate(self, info, url, title):
+#        title = info.context.title
+        feed = Feed(url=url)
+        feed.save()
+        feedsource = FeedSource(
+            feed_id=feed.id,
+            title=title,
+            user=info.context.user,
+        )
+        feedsource.save()
+
+        return CreateFeedSource(
+            id=feedsource.id,
+            url=feed.url,
+            title=feedsource.title,
+        )
+        
 class Mutation(graphene.ObjectType):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
+    add_feedsource = CreateFeedSource.Field()
     
 class PostType(DjangoObjectType):
 
