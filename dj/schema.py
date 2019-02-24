@@ -11,6 +11,11 @@ from graphql_relay.node.node import from_global_id
 import graphql_jwt
 from graphql_jwt.decorators import login_required
 
+class Mutation(graphene.ObjectType):
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
+    
 class PostType(DjangoObjectType):
 
     class Meta:
@@ -74,4 +79,4 @@ class Query(graphene.ObjectType):
                 source_title=F('feed__feedsource__title'))
         return queryset
         
-schema = graphene.Schema(query=Query)
+schema = graphene.Schema(query=Query, mutation=Mutation)
