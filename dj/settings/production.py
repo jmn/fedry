@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'social_django',
     'debug_toolbar',
     'graphene_django',
-    'rest_framework'
 ]
 
 REST_FRAMEWORK = {
