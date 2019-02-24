@@ -143,7 +143,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'graphql_jwt.backends.JSONWebTokenBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
 )
 
 LOGIN_URL = 'login'
@@ -211,7 +211,7 @@ sentry_sdk.init(
 
 INTERNAL_IPS = ['127.0.0.1', '81.226.138.87']
 GRAPHENE = {
-    'SCHEMA': 'dj.schema.schema' # Where your Graphene schema lives
+    'SCHEMA': 'dj.schema.schema', # Where your Graphene schema lives
     'MIDDLEWARE': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
