@@ -9,6 +9,7 @@ import tagulous.models
 import graphene
 from graphql_relay.node.node import from_global_id
 import graphql_jwt
+from graphql_jwt.decorators import login_required
 
 class PostType(DjangoObjectType):
 
@@ -20,6 +21,7 @@ class PostType(DjangoObjectType):
 class Tags(graphene.ObjectType):
     tag_list = graphene.List(graphene.String)
 
+    @login_required
     def resolve_tag_list(self, info):
         username = info.context.args.get('username')
         u = User.objects.get(username=username)
@@ -27,10 +29,10 @@ class Tags(graphene.ObjectType):
         tags = [tag.name for tag in f.all()]
         return tags
 
-class AddFeed(graphene.Mutation):
-    class Arguments:
-        url = graphene.String()
-        name = graphene.String()
+# class AddFeed(graphene.Mutation):
+#     class Arguments:
+#         url = graphene.String()
+#         name = graphene.String()
         
 class Query(graphene.ObjectType):
     current_user = graphene.Field(UserType)
@@ -78,10 +80,4 @@ class Query(graphene.ObjectType):
                 source_title=F('feed__feedsource__title'))
         return queryset
         
-class Mutation(graphene.ObjectType):
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
-    verify_token = graphql_jwt.Verify.Field()
-    refresh_token = graphql_jwt.Refresh.Field()
-
-
-schema = graphene.Schema(query=Query, mutation=Mutation)
+schema = graphene.Schema(query=Query)
