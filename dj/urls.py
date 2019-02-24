@@ -21,9 +21,6 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.base import RedirectView
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_jwt.views import refresh_jwt_token
-from rest_framework_jwt.views import verify_jwt_token
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
@@ -36,9 +33,6 @@ urlpatterns = [
     url(r'^', include('fd.urls')),
     url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
     url(r'^graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    url(r'^api-token-auth/', obtain_jwt_token),
-    url(r'^api-token-refresh/', refresh_jwt_token),
-    url(r'^api-token-verify/', verify_jwt_token),
 ]
 
 if settings.DEBUG:
