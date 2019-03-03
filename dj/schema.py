@@ -19,21 +19,24 @@ class CreateFeedSource(graphene.Mutation):
     id = graphene.Int()
     url = graphene.String()
     title = graphene.String()
-#    tags = todo
+    tags = graphene.List(graphene.String)
     
     class Arguments:
         url = graphene.String()
         title = graphene.String()
+        tags = graphene.List(graphene.String)
 
     @login_required
-    def mutate(self, info, url, title):
+    def mutate(self, info, url, title, tags):
 #        title = info.context.title
         feed = Feed(url=url)
         feed.save()
+
         feedsource = FeedSource(
             feed_id=feed.id,
             title=title,
             user=info.context.user,
+            tags=tags
         )
         feedsource.save()
 
@@ -41,6 +44,7 @@ class CreateFeedSource(graphene.Mutation):
             id=feedsource.id,
             url=feed.url,
             title=feedsource.title,
+            tags=tags
         )
         
 class Mutation(graphene.ObjectType):
