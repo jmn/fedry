@@ -16,3 +16,19 @@ jobs:
           python-version: '3.8'
           architecture: 'x64' 
       - run: pip install -r requirements.txt
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          KEY: ${{ secrets.KEY }}
+        with:
+          source: "dj"
+          target: "/home/fedry/dj"
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: fab production deploy
