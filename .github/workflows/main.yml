@@ -25,7 +25,7 @@ jobs:
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}  
           key: ${{ secrets.KEY }}
-          local: "."
+          local: "*"
           remote: "/home/fedry/dj"
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
