@@ -17,7 +17,7 @@ jobs:
           architecture: 'x64'
       - name: Install pg_conf postgresql
         run: sudo apt-get install libpq-dev 
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements/production.txt
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         env:
