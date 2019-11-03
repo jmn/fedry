@@ -11,7 +11,7 @@ PROJECT_NAME = 'dj'
 PROJECT_ROOT = '/home/fedry/%s' % PROJECT_NAME  
 #VENV_DIR = os.path.join(PROJECT_ROOT, '.venv')
 VENV_DIR = '/home/fedry/'
-REPO = 'git@dev:jmn/sn.git' 
+REPO = 'git@github.com:jmn/fedry.git' 
 
 env.hosts = []
 
@@ -23,7 +23,7 @@ def staging():
 
 @task
 def production():  
-    env.hosts = ['jmn@i.jmnorlund.net']
+    env.hosts = ['fedry@i.jmnorlund.net']
     env.environment = 'production'
 
 # DO NOT EDIT ANYTHING BELOW THIS LINE!
