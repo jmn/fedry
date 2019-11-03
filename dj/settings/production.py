@@ -99,7 +99,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dj.wsgi.application'
 
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config(default='postgres://postgres:aoeuaoeu@localhost:5432/fedry')
+DATABASES['default'] = dj_database_url.config(default='postgres://postgres:aoeuaoeu@localhost:5433/fedry')
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 AUTH_PASSWORD_VALIDATORS = [
