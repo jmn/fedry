@@ -187,13 +187,13 @@ RQ_QUEUES = {
 }
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8001',
-    'localhost:8000',
-    'reader.fedry.net',
+    'http://localhost:8001',
+    'http://localhost:8000',
+    'https://reader.fedry.net',
 )
 
 GOOGLE_ANALYTICS_PROPERTY_ID =  'UA-106346242-1'
-
+DJSTRIPE_WEBHOOK_VALIDATION='retrieve_event'
 STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "pk_live_2YQdqgsd3JtquaX12gBIsj4O")
 STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "sk_live_GWARAotxGXtZoeTJeLO8TIUl")
 STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_dZCQLCB9Cn1RlBM63vuy3GFg")
