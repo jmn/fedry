@@ -16,8 +16,8 @@ jobs:
         with:
           python-version: '3.7'
           architecture: 'x64'
-      - name: Install pg_conf postgresql
-        run: sudo apt-get install libpq-dev 
+#      - name: Install pg_conf postgresql
+#        run: sudo apt-get install libpq-dev 
 #      - run: pip install -r requirements/production.txt
       - name: copy file via ssh key
         uses: horochx/deploy-via-scp@master

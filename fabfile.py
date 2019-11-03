@@ -56,7 +56,7 @@ def deploy():
     """
     Deploys the latest tag to the production server
     """
-    sudo('chown -R %s:%s %s' % (env.user, env.user, PROJECT_ROOT))
+#    sudo('chown -R %s:%s %s' % (env.user, env.user, PROJECT_ROOT))
 
     with cd(PROJECT_ROOT):
         print('Pulling origin master')
@@ -67,8 +67,8 @@ def deploy():
                 run('./manage.py migrate')
                 run('./manage.py collectstatic --noinput')
 
-    chown()
-    restart()
+#    chown()
+#    restart()
 
 
 @task
