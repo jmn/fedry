@@ -15,8 +15,8 @@ jobs:
         with:
           python-version: '3.8'
           architecture: 'x64'
-      - name: Install xmllint
-        run: sudo apt-get install postgresql-dev 
+      - name: Install pg_conf postgresql
+        run: sudo apt-get install libpq-dev 
       - run: pip install -r requirements.txt
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
